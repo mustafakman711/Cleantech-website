@@ -29,9 +29,9 @@ export const partners: Partner[] = [
   {
     role: { tr: "Kurucu & Portföy Yönetim Şirketi", en: "Founder & Portfolio Manager" },
     name: "Neo Portföy",
-    logo: "/partners/neo-portfoy.svg",
-    logoWidth: 150,
-    logoHeight: 48,
+    logo: "/partners/neo-portfoy-cropped.svg",
+    logoWidth: 137,
+    logoHeight: 44,
     description: {
       tr: "Fonun kurucusu ve yöneticisi; SPK lisanslı portföy yönetim şirketi.",
       en: "Founder and manager of the fund; a CMB-licensed portfolio management company.",
@@ -40,9 +40,9 @@ export const partners: Partner[] = [
   {
     role: { tr: "Operasyonel Partner", en: "Operational Partner" },
     name: "INVEXEN",
-    logo: "/partners/invexen.svg",
-    logoWidth: 200,
-    logoHeight: 48,
+    logo: "/partners/invexen-cropped.svg",
+    logoWidth: 162,
+    logoHeight: 25,
     description: {
       tr: "Fonun yatırım operasyonlarını ve portföy şirketlerine operasyonel desteği yürütür.",
       en: "Runs the fund's investment operations and operational support for portfolio companies.",

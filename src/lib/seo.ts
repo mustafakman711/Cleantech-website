@@ -30,7 +30,8 @@ export function pageMetadata({
   const desc = description ?? copy[locale].meta.description;
 
   return {
-    title,
+    // Omit `title` entirely when not given, so the layout's default title applies (QA #13: home had no <title>).
+    ...(title ? { title } : {}),
     description: desc,
     alternates: { canonical, languages },
     openGraph: {

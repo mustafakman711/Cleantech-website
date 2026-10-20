@@ -18,6 +18,7 @@ const tr = {
     platform: "Cleantech Platform",
     menu: "Menü",
     close: "Kapat",
+    home: "Ana sayfa",
     switchLanguage: "Switch to English",
     skip: "İçeriğe geç",
   },
@@ -35,14 +36,19 @@ const tr = {
     sector: "Sektör",
     headquarters: "Merkez",
     backTo: "Geri dön",
+    skip: "Geç",
+    open: "Aç",
     readInOther: "Read in English",
     relatedPosts: "Diğer yazılar",
     target: "Hedef",
   },
   home: {
     hero: {
-      eyebrow: "Girişim Sermayesi Yatırım Fonu · Borsa İstanbul: NPCLN",
+      eyebrow: "GSYF · BIST: NPCLN",
       title: "İleri teknoloji yatırımlarıyla sürdürülebilir bir gelecek",
+      titleLines: ["İleri teknoloji", "yatırımlarıyla", "*sürdürülebilir*", "bir gelecek"],
+      stripLabel: "Fon künyesi",
+      strip: ["BIST: NPCLN", "≤ 1M USD / girişim", "Erken & büyüme aşaması", "12 odak alanı", "10 SKA"],
       lead: "Enerji, şehirler, döngüsel ekonomi ve biyoekonomi alanlarında yapay zeka destekli çözümler geliştiren, ilk günden global hedefleyen teknoloji girişimlerine yatırım yapıyoruz.",
     },
     facts: [
@@ -51,9 +57,15 @@ const tr = {
       { value: "10", label: "BM Sürdürülebilir Kalkınma Amacı ile uyum" },
       { value: "NPCLN", label: "Borsa İstanbul Girişim Sermayesi Pazarı" },
     ],
+    manifesto: {
+      label: "Tez",
+      title: "Yatırım tezimiz",
+      text: "İklim ve kaynak sorunlarını çözen teknolojilerin, aynı zamanda ==en büyük ekonomik fırsatlardan== biri olduğuna inanıyoruz. Sürdürülebilirlik ile ==yapay zekanın== kesiştiği yerde, bu dönüşümü hızlandıran kuruculara ==erken aşamada== ortak oluyoruz.",
+    },
     thesis: {
       eyebrow: "Yatırım tezimiz",
       title: "Sürdürülebilirlik ile yapay zekanın kesiştiği yerde",
+      accent: "kesiştiği",
       lead: "İklim ve kaynak sorunlarını çözen teknolojilerin, aynı zamanda en büyük ekonomik fırsatlardan biri olduğuna inanıyoruz. Bu dönüşümü hızlandıran kuruculara erken aşamada ortak oluyoruz.",
       pillars: [
         {
@@ -78,27 +90,53 @@ const tr = {
     },
     sectors: {
       eyebrow: "Yatırım alanlarımız",
+      label: "Odak",
       title: "Dört tema, on iki odak alanı",
+      accent: "on iki",
+      areas: "alan",
+      themes: "Temalar",
       lead: "Sürdürülebilirlik odaklı teknolojiler alanında yapay zeka destekli ve teknoloji tabanlı erken aşama girişimlere yatırım yapıyoruz.",
+    },
+    stats: {
+      label: "Künye",
+      title: "Rakamlarla Cleantech GSYF",
+      accent: "Rakamlarla",
+      items: [
+        { value: 3, label: "Portföy şirketi", source: "ARC · Remus · Werover" },
+        { value: 1, prefix: "≤", suffix: "M", unit: "USD", label: "Devam yatırımları dahil girişim başına yatırım", source: "Yatırım tezi" },
+        { value: 12, label: "Sürdürülebilirlik odaklı yatırım alanı", source: "4 tema" },
+        { value: 10, label: "BM Sürdürülebilir Kalkınma Amacı ile uyum", source: "BM SKA" },
+        { text: "NPCLN", label: "Borsa İstanbul Girişim Sermayesi Pazarı'nda işlem kodu", source: "BIST GSP · Aralık 2025'ten beri" },
+      ],
     },
     portfolio: {
       eyebrow: "Portföy",
       title: "Geleceğin enerji altyapısını kuran şirketler",
+      accent: "Geleceğin",
+      columns: { company: "Şirket", sector: "Sektör", hq: "Merkez" },
+      highlights: "Öne çıkanlar",
       lead: "Rüzgar türbinlerinden elektrik tedarikine ve yeni nesil nükleer reaktörlere kadar, ölçülebilir etki üreten girişimlerle yol alıyoruz.",
     },
     value: {
       eyebrow: "Sermayeden fazlası",
       title: "Girişimlerin büyümesini ve küresel başarısını hızlandırıyoruz",
+      accent: "küresel",
+      label: "Değer",
+      principles: "İlkelerimiz",
+      support: "Portföy desteği",
       lead: "Yatırım yaptığımız girişimlere finansal desteğin yanı sıra stratejik rehberlik, iş geliştirme ve geniş bir iş ağına erişim sunuyoruz. Yönetim ekibimiz ve danışma kurulumuzla yakın çalışarak operasyonel destek sağlıyoruz.",
     },
     structure: {
       eyebrow: "Fon yapısı",
       title: "Enerji sektörünün liderleriyle kurulan bir fon",
+      accent: "liderleriyle",
+      label: "Yapı",
       lead: "Neo Portföy ve INVEXEN'in tecrübesiyle desteklenen fon yönetimi, YEO Teknoloji ve Biotrend Enerji'nin lider yatırımcı olarak katılımıyla yüksek getiri ve etkin risk yönetimi hedefliyor.",
     },
     investors: {
       eyebrow: "Yatırımcılar için",
       title: "Çağın ötesindeki teknolojilere erken erişim",
+      accent: "erken erişim",
       lead: "Cleantech GSYF, Borsa İstanbul'da işlem gören yapısı ve vergi avantajlarıyla nitelikli yatırımcıları küresel sürdürülebilirlik ekosistemiyle buluşturuyor.",
       points: [
         { value: "NPCLN", label: "Borsa İstanbul'da işlem görür, ikincil piyasa likiditesi sağlar" },
@@ -110,10 +148,13 @@ const tr = {
     news: {
       eyebrow: "Haberler",
       title: "Fondan son gelişmeler",
+      accent: "son",
+      featured: "Son haber",
     },
     faq: {
       eyebrow: "Sıkça sorulan sorular",
       title: "GSYF hakkında merak edilenler",
+      accent: "merak",
       lead: "Farklı bir sorunuz mu var? Ekibimiz size yardımcı olmaktan memnuniyet duyar.",
     },
   },
@@ -245,6 +286,14 @@ const tr = {
   },
   footer: {
     tagline: "Sürdürülebilirlik odaklı, yapay zeka destekli teknoloji girişimlerine yatırım yapan girişim sermayesi yatırım fonu.",
+    ctaLabel: "İletişim",
+    ctaTitle: "Sürdürülebilir geleceği birlikte kuralım",
+    ctaAccent: "birlikte",
+    writeUs: "Bize yazın",
+    localTime: "İstanbul, yerel saat",
+    office: "Ofis",
+    follow: "Takip edin",
+    backToTop: "Başa dön",
     fund: "Fon",
     apply: "Başvurular",
     media: "Medya",
@@ -253,9 +302,11 @@ const tr = {
     rights: "Tüm hakları saklıdır.",
   },
   notFound: {
-    title: "Sayfa bulunamadı",
-    text: "Aradığınız sayfa taşınmış ya da kaldırılmış olabilir.",
+    title: "Devre kesildi",
+    code: "Hata 404 · Sayfa bulunamadı",
+    text: "Aradığınız sayfa taşınmış ya da kaldırılmış olabilir. Akımı buradan yeniden yönlendirin:",
     home: "Ana sayfaya dön",
+    metaTitle: "Sayfa bulunamadı",
   },
 };
 
@@ -279,6 +330,7 @@ const en: Copy = {
     platform: "Cleantech Platform",
     menu: "Menu",
     close: "Close",
+    home: "Home",
     switchLanguage: "Türkçe'ye geç",
     skip: "Skip to content",
   },
@@ -296,14 +348,19 @@ const en: Copy = {
     sector: "Sector",
     headquarters: "HQ",
     backTo: "Back",
+    skip: "Skip",
+    open: "Open",
     readInOther: "Türkçe oku",
     relatedPosts: "More articles",
     target: "Target",
   },
   home: {
     hero: {
-      eyebrow: "Venture Capital Investment Fund · Borsa İstanbul: NPCLN",
+      eyebrow: "VCIF · BIST: NPCLN",
       title: "A sustainable future through high-tech investments",
+      titleLines: ["A *sustainable*", "future through", "high-tech", "investments"],
+      stripLabel: "Fund facts",
+      strip: ["BIST: NPCLN", "≤ $1M / startup", "Early & growth stage", "12 focus areas", "10 SDGs"],
       lead: "We invest in AI-powered technology startups in energy, cities, the circular economy and the bioeconomy, built to go global from day one.",
     },
     facts: [
@@ -312,9 +369,15 @@ const en: Copy = {
       { value: "10", label: "UN Sustainable Development Goals aligned" },
       { value: "NPCLN", label: "Borsa İstanbul Venture Capital Market" },
     ],
+    manifesto: {
+      label: "Thesis",
+      title: "Our thesis",
+      text: "We believe the technologies that solve climate and resource challenges are also among ==the largest economic opportunities== of our time. Where sustainability meets ==artificial intelligence==, we partner ==early== with the founders who accelerate this transition.",
+    },
     thesis: {
       eyebrow: "Our thesis",
       title: "Where sustainability meets artificial intelligence",
+      accent: "meets",
       lead: "We believe the technologies that solve climate and resource challenges are also among the largest economic opportunities of our time. We partner early with founders who accelerate this transition.",
       pillars: [
         {
@@ -339,27 +402,53 @@ const en: Copy = {
     },
     sectors: {
       eyebrow: "Investment focus",
+      label: "Focus",
       title: "Four themes, twelve focus areas",
+      accent: "twelve",
+      areas: "areas",
+      themes: "Themes",
       lead: "We invest in AI-powered and technology-driven early-stage startups across sustainability-focused technologies.",
+    },
+    stats: {
+      label: "Fact sheet",
+      title: "Cleantech GSYF in numbers",
+      accent: "numbers",
+      items: [
+        { value: 3, label: "Portfolio companies", source: "ARC · Remus · Werover" },
+        { value: 1, prefix: "≤$", suffix: "M", unit: "USD", label: "Per startup, including follow-on investments", source: "Investment thesis" },
+        { value: 12, label: "Sustainability-focused investment areas", source: "4 themes" },
+        { value: 10, label: "UN Sustainable Development Goals aligned", source: "UN SDGs" },
+        { text: "NPCLN", label: "Ticker on the Borsa İstanbul Venture Capital Market", source: "BIST VCM · since Dec 2025" },
+      ],
     },
     portfolio: {
       eyebrow: "Portfolio",
       title: "Companies building tomorrow's energy infrastructure",
+      accent: "tomorrow's",
+      columns: { company: "Company", sector: "Sector", hq: "HQ" },
+      highlights: "Highlights",
       lead: "From wind turbines to electricity supply and next-generation nuclear reactors, we back startups that deliver measurable impact.",
     },
     value: {
       eyebrow: "Beyond capital",
       title: "We accelerate startups to growth and global success",
+      accent: "global",
+      label: "Value",
+      principles: "Our principles",
+      support: "Portfolio support",
       lead: "Alongside financial support, we provide strategic guidance, business development and access to an extensive business network, working closely with our management team and advisory board.",
     },
     structure: {
       eyebrow: "Fund structure",
       title: "A fund built with energy-sector leaders",
+      accent: "leaders",
+      label: "Structure",
       lead: "Backed by the experience of Neo Portföy and INVEXEN, with YEO Teknoloji and Biotrend Enerji as lead investors, the fund targets high returns with effective risk management.",
     },
     investors: {
       eyebrow: "For investors",
       title: "Early access to technologies ahead of their time",
+      accent: "ahead of their time",
       lead: "Listed on Borsa İstanbul and backed by tax advantages, Cleantech GSYF connects qualified investors with the global sustainability ecosystem.",
       points: [
         { value: "NPCLN", label: "Traded on Borsa İstanbul with secondary-market liquidity" },
@@ -371,10 +460,13 @@ const en: Copy = {
     news: {
       eyebrow: "News",
       title: "Latest from the fund",
+      accent: "Latest",
+      featured: "Latest news",
     },
     faq: {
       eyebrow: "FAQ",
       title: "Questions about VCIFs",
+      accent: "Questions",
       lead: "Have a different question? Our team will be happy to help.",
     },
   },
@@ -506,6 +598,14 @@ const en: Copy = {
   },
   footer: {
     tagline: "A venture capital investment fund backing sustainability-focused, AI-powered technology startups.",
+    ctaLabel: "Contact",
+    ctaTitle: "Let's build a sustainable future together",
+    ctaAccent: "together",
+    writeUs: "Write to us",
+    localTime: "Istanbul, local time",
+    office: "Office",
+    follow: "Follow",
+    backToTop: "Back to top",
     fund: "Fund",
     apply: "Apply",
     media: "Media",
@@ -514,9 +614,11 @@ const en: Copy = {
     rights: "All rights reserved.",
   },
   notFound: {
-    title: "Page not found",
-    text: "The page you are looking for may have been moved or removed.",
+    title: "Circuit broken",
+    code: "Error 404 · Page not found",
+    text: "The page you are looking for may have been moved or removed. Re-route the current from here:",
     home: "Back to home",
+    metaTitle: "Page not found",
   },
 };
 

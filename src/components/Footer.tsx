@@ -1,9 +1,15 @@
-import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { copy } from "@/content/copy";
 import { contact } from "@/content/fund";
+import { portfolio } from "@/content/portfolio";
+import { committee, management } from "@/content/team";
 import type { Locale } from "@/lib/i18n";
+import { getPosts } from "@/lib/posts";
 import { InstagramIcon, LinkedInIcon, XIcon } from "./icons";
+import { LocalTime } from "./LocalTime";
+import { Logo } from "./Logo";
+import { ButtonLink, ChapterLabel, withAccent } from "./ui";
 
 export function SocialLinks({ className = "" }: { className?: string }) {
   const items = [
@@ -20,7 +26,7 @@ export function SocialLinks({ className = "" }: { className?: string }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={label}
-            className="inline-flex size-10 items-center justify-center rounded-full border border-white/10 text-white/80 transition-colors hover:border-neon hover:text-neon"
+            className="inline-flex size-11 items-center justify-center rounded-full border border-line-strong text-fog transition-colors hover:border-volt hover:text-volt"
           >
             <Icon className="size-4" />
           </a>
@@ -30,63 +36,128 @@ export function SocialLinks({ className = "" }: { className?: string }) {
   );
 }
 
+const pad = (n: number) => String(n).padStart(2, "0");
+
+/** Global footer "finale": CTA + big email, counted nav, Istanbul local time, legal line, cropped wordmark. */
 export function Footer({ locale }: { locale: Locale }) {
   const c = copy[locale];
+  const f = c.footer;
+  const counts: Partial<Record<string, number>> = {
+    portfolio: portfolio.length,
+    team: management.length + committee.length,
+    news: getPosts(locale, "news").length,
+    insights: getPosts(locale, "insights").length,
+  };
+  const link = (k: keyof typeof c.nav) => ({ href: `/${locale}/${k}`, label: c.nav[k], count: counts[k] });
   const columns = [
-    { title: c.footer.fund, links: (["about", "portfolio", "team"] as const).map((k) => ({ href: `/${locale}/${k}`, label: c.nav[k] })) },
-    {
-      title: c.footer.apply,
-      links: [
-        { href: `/${locale}/founders`, label: c.nav.founders },
-        { href: `/${locale}/investors`, label: c.nav.investors },
-        { href: `/${locale}/contact`, label: c.nav.contact },
-      ],
-    },
-    { title: c.footer.media, links: (["news", "insights"] as const).map((k) => ({ href: `/${locale}/${k}`, label: c.nav[k] })) },
+    { title: f.fund, links: [link("about"), link("portfolio"), link("team")] },
+    { title: f.apply, links: [link("founders"), link("investors"), link("contact")] },
+    { title: f.media, links: [link("news"), link("insights")] },
   ];
 
   return (
-    <footer className="border-t border-white/5 bg-petrol-950">
-      <div className="container-site grid gap-12 py-16 lg:grid-cols-[1.4fr_2fr]">
-        <div className="max-w-sm">
-          <Image src="/brand/cleantech-logo.svg" alt="Cleantech Ventures" width={150} height={60} className="h-14 w-auto" />
-          <p className="mt-5 text-sm leading-relaxed text-mist/80">{c.footer.tagline}</p>
-          <SocialLinks className="mt-6" />
+    <footer className="relative overflow-hidden bg-abyss-950 text-mist">
+      <div className="container-site pt-24 md:pt-32">
+        {/* CTA row */}
+        <ChapterLabel label={f.ctaLabel} />
+        <h2 className="type-h2 mt-8 max-w-[16ch] text-mist">{withAccent(f.ctaTitle, f.ctaAccent)}</h2>
+        <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:items-end">
+          <div className="min-w-0 lg:col-span-8">
+            <p className="type-label text-slate">{f.writeUs}</p>
+            <a
+              href={`mailto:${contact.email}`}
+              className="group mt-3 inline-flex max-w-full items-start gap-3 text-[clamp(1.375rem,0.6rem+3.6vw,4rem)] font-[380] leading-[1.05] tracking-[-0.035em] text-mist [font-stretch:104%] [overflow-wrap:anywhere] hover:text-volt"
+            >
+              <span className="link-trace pb-1">{contact.email}</span>
+              <ArrowUpRight
+                aria-hidden
+                className="mt-[0.15em] size-[0.7em] shrink-0 text-volt transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1"
+                strokeWidth={1.25}
+              />
+            </a>
+          </div>
+          <div className="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
+            <ButtonLink href={contact.startupFormUrl}>{c.common.applyStartup}</ButtonLink>
+            <ButtonLink href={contact.investorFormUrl} variant="bracket">
+              {c.common.applyInvestor}
+            </ButtonLink>
+          </div>
         </div>
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-[1fr_1fr_1fr_1.5fr]">
+
+        {/* Nav grid */}
+        <div className="mt-20 grid grid-cols-2 gap-x-6 gap-y-12 border-t border-line pt-12 md:grid-cols-12 md:pt-16">
+          <div className="col-span-2 md:col-span-12 lg:col-span-4">
+            <Logo className="h-9 w-auto" />
+            <p className="mt-6 max-w-[34ch] text-[0.9375rem] leading-relaxed text-fog">{f.tagline}</p>
+            <SocialLinks className="mt-6" />
+          </div>
           {columns.map((col) => (
-            <div key={col.title}>
-              <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-neon">{col.title}</h2>
-              <ul className="mt-4 space-y-3">
+            <nav key={col.title} aria-label={col.title} className="md:col-span-3 lg:col-span-2">
+              <h2 className="type-label text-slate">{col.title}</h2>
+              <ul className="mt-4">
                 {col.links.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} className="text-sm text-white/80 hover:text-neon">
-                      {l.label}
+                    <Link href={l.href} className="group inline-flex min-h-10 items-center gap-2 text-[0.9375rem] text-mist transition-colors hover:text-volt">
+                      <span>{l.label}</span>
+                      {l.count !== undefined && <span className="type-label text-slate group-hover:text-volt">[{pad(l.count)}]</span>}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
           ))}
-          <div className="col-span-2 sm:col-span-1">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-neon">{c.nav.contact}</h2>
-            <address className="mt-4 space-y-3 text-sm not-italic text-white/80">
-              <a href={`mailto:${contact.email}`} className="block hover:text-neon">
-                {contact.email}
-              </a>
-              <span className="block leading-relaxed">{contact.address}</span>
-            </address>
+          <div className="col-span-2 md:col-span-3 lg:col-span-2">
+            <h2 className="type-label text-slate">{f.office}</h2>
+            <address className="mt-4 text-[0.9375rem] not-italic leading-relaxed text-fog">{contact.address}</address>
+            <a
+              href={contact.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-flex min-h-10 items-center gap-1.5 text-[0.9375rem] text-mist hover:text-volt"
+            >
+              {c.contactPage.showOnMap}
+              <ArrowUpRight aria-hidden className="size-3.5 text-volt" strokeWidth={1.75} />
+            </a>
+            <p className="mt-6 flex items-center gap-2.5">
+              <span aria-hidden className="size-1.5 rounded-full bg-volt shadow-[0_0_8px_rgb(44_255_152/0.9)] motion-safe:animate-pulse-node" />
+              <span className="type-label text-slate">{f.localTime}</span>
+            </p>
+            <p className="type-mono mt-1 text-2xl text-mist">
+              <LocalTime locale={locale === "tr" ? "tr-TR" : "en-GB"} />
+              <span className="ml-2 text-sm text-slate">GMT+3</span>
+            </p>
+          </div>
+        </div>
+
+        {/* Legal */}
+        <div className="mt-16 grid gap-6 border-t border-line py-8 md:grid-cols-12 md:items-start">
+          <p className="max-w-[90ch] text-xs leading-relaxed text-slate md:col-span-8">{f.legal}</p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 md:col-span-4 md:justify-end">
+            <p className="type-label text-slate">
+              © {new Date().getFullYear()} Cleantech Ventures · {f.rights}
+            </p>
+            <a href="#main" className="type-label inline-flex min-h-10 items-center text-fog hover:text-volt">
+              ↑ {f.backToTop}
+            </a>
           </div>
         </div>
       </div>
-      <div className="border-t border-white/5">
-        <div className="container-site flex flex-col gap-4 py-8 text-xs leading-relaxed text-white/50 md:flex-row md:items-start md:justify-between">
-          <p className="max-w-3xl">{c.footer.legal}</p>
-          <p className="shrink-0">
-            © {new Date().getFullYear()} Cleantech Ventures. {c.footer.rights}
-          </p>
-        </div>
-      </div>
+
+      {/* Giant cropped wordmark bleeding off the bottom edge */}
+      <svg aria-hidden viewBox="0 0 1000 150" className="block w-full select-none text-petrol-800" preserveAspectRatio="xMidYMin meet">
+        <text
+          x="500"
+          y="190"
+          textAnchor="middle"
+          textLength="992"
+          lengthAdjust="spacingAndGlyphs"
+          fontSize="232"
+          fill="currentColor"
+          style={{ fontFamily: "var(--font-mona)", fontWeight: 560, fontStretch: "125%", letterSpacing: "-0.02em" }}
+        >
+          CLEANTECH
+        </text>
+      </svg>
     </footer>
   );
 }

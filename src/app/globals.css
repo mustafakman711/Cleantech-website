@@ -1,24 +1,65 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   Cleantech Ventures — "Living Circuit" design system (v2)
+   --------------------------------------------------------------------------
+   Palette roles
+     abyss-950  #001417  deepest (footer, overlays) — never pure black
+     abyss-900  #002428  base page background
+     abyss-850  #00343A  raised surface (panels, chips)
+     petrol-800 #004C54  the one brand "flood" section per page
+     volt       #2CFF98  RARE: primary CTA, active state, data highlight, one accent word
+     mist/fog/slate      text primary / secondary / labels (all AA on abyss-900)
+     bone       #F2F5EF  light band (1–2 per page); text abyss-900, accent text volt-ink
+   Never put volt text on bone (1.2:1). Glow only on lines/shapes, never on text.
+   ========================================================================== */
+
 @theme {
-  --color-petrol-950: #001a1d;
-  --color-petrol-900: #002428;
-  --color-petrol-850: #013035;
+  --color-abyss-950: #001417;
+  --color-abyss-900: #002428;
+  --color-abyss-850: #00343a;
   --color-petrol-800: #004c54;
-  --color-petrol-700: #0e5858;
-  --color-petrol-600: #146b6b;
+  --color-petrol-700: #0b5e63;
+  --color-petrol-600: #14706f;
+
+  --color-volt: #2cff98;
+  --color-volt-300: #8fe3c4;
+  --color-volt-600: #19d97c;
+  --color-volt-ink: #00704a; /* accent text on bone */
+
+  --color-mist: #e9f5f1;
+  --color-fog: #a9c7c2;
+  --color-slate: #7fa19c;
+
+  --color-bone: #f2f5ef;
+  --color-bone-ink: #3e676b; /* secondary text on bone */
+
+  /* hairlines */
+  --color-line: rgb(169 199 194 / 0.14);
+  --color-line-strong: rgb(169 199 194 / 0.28);
+  --color-line-volt: color-mix(in oklab, #2cff98 24%, transparent);
+  --color-line-ink: rgb(0 36 40 / 0.14);
+
+  /* Legacy aliases — inner pages (Phase 2b) still reference these names. */
+  --color-petrol-950: #001417;
+  --color-petrol-900: #002428;
+  --color-petrol-850: #00343a;
   --color-petrol-500: #1d8580;
   --color-neon: #2cff98;
-  --color-neon-300: #8affc6;
+  --color-neon-300: #8fe3c4;
   --color-neon-600: #19d97c;
-  --color-mist: #c9e4e1;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-outfit), var(--font-inter), ui-sans-serif, sans-serif;
+  --font-sans: var(--font-mona), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-mona), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-accent: var(--font-instrument), ui-serif, Georgia, serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-line: cubic-bezier(0.2, 0.7, 0, 1);
 
   --animate-draw: draw 2.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
   --animate-pulse-node: pulse-node 3.2s ease-in-out infinite;
-  --animate-rise: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-rise: rise 0.9s var(--ease-out-expo) both;
 
   @keyframes draw {
     to {
@@ -46,40 +87,399 @@
   }
 }
 
+:root {
+  /* Content gutter; the fixed GridFrame hairlines sit just outside it. */
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --frame-inset: clamp(0.625rem, 1.4vw, 1.375rem);
+  --site-max: 100rem;
+  --header-h: 4.5rem;
+  --focus: var(--color-volt);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
     -webkit-text-size-adjust: 100%;
+    background: var(--color-abyss-900);
   }
   body {
-    @apply bg-petrol-900 font-sans text-white antialiased;
+    @apply bg-abyss-900 font-sans text-mist antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    font-feature-settings: "ss01", "ss02";
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
   }
   ::selection {
-    @apply bg-neon text-petrol-950;
+    background: var(--color-volt);
+    color: var(--color-abyss-950);
   }
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-neon;
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Film grain — one fixed layer for the whole site. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 }
 
+/* ---------- Layout ---------- */
+
+/** Site container: max width + responsive gutter. Use on every section's inner wrapper. */
 @utility container-site {
-  @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--site-max);
+  padding-inline: var(--gutter);
+}
+
+/** Standard section rhythm (QA #31). */
+@utility section-y {
+  padding-block: 6rem;
+  @media (width >= 48rem) {
+    padding-block: 8rem;
+  }
+}
+@utility section-y-tight {
+  padding-block: 4rem;
+  @media (width >= 48rem) {
+    padding-block: 5rem;
+  }
+}
+
+/** Light "bone" band: flips text + focus colours. Never use volt text inside it. */
+@utility band-bone {
+  background-color: var(--color-bone);
+  color: var(--color-abyss-900);
+  --focus: var(--color-volt-ink);
+}
+
+/* ---------- Type ---------- */
+
+/** Home hero display. Mona Sans expanded, light-ish, very tight. */
+@utility type-display {
+  font-family: var(--font-sans);
+  font-stretch: 112%;
+  font-weight: 430;
+  font-size: clamp(2.5rem, 1rem + 6.6vw, 8.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+/** Inner-page H1. */
+@utility type-h1 {
+  font-family: var(--font-sans);
+  font-stretch: 110%;
+  font-weight: 430;
+  font-size: clamp(2.5rem, 1rem + 5.2vw, 7rem);
+  line-height: 0.94;
+  letter-spacing: -0.042em;
+  text-wrap: balance;
+}
+
+@utility type-h2 {
+  font-family: var(--font-sans);
+  font-stretch: 108%;
+  font-weight: 440;
+  font-size: clamp(2rem, 1rem + 3.4vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+@utility type-h3 {
+  font-family: var(--font-sans);
+  font-stretch: 104%;
+  font-weight: 560;
+  font-size: clamp(1.375rem, 1rem + 1vw, 2rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+@utility type-lead {
+  font-size: clamp(1.1875rem, 1rem + 0.45vw, 1.375rem);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/** Mono metadata layer: eyebrows, indices, dates, tags. */
+@utility type-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 450;
+  line-height: 1.35;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/** Mono at reading size (tickers, data). */
+@utility type-mono {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/** Large ledger numbers. */
+@utility type-stat {
+  font-family: var(--font-sans);
+  font-stretch: 125%;
+  font-weight: 300;
+  font-size: clamp(3rem, 1.5rem + 4vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/** Instrument Serif italic accent — one per headline. */
+@utility type-accent {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: 100%;
+  letter-spacing: -0.01em;
+  font-size: 1.06em;
+  line-height: 0;
 }
 
 @utility text-balance {
   text-wrap: balance;
 }
 
+/* ---------- Motif utilities ---------- */
+
+/** PCB "pad" corner brackets drawn with backgrounds (no extra markup). Set --tick-color / --tick to tune. */
+@utility pcb-brackets {
+  --tick: 9px;
+  --tick-w: 1.5px;
+  --tick-color: currentColor;
+  background:
+    linear-gradient(var(--tick-color), var(--tick-color)) top left / var(--tick) var(--tick-w),
+    linear-gradient(var(--tick-color), var(--tick-color)) top left / var(--tick-w) var(--tick),
+    linear-gradient(var(--tick-color), var(--tick-color)) top right / var(--tick) var(--tick-w),
+    linear-gradient(var(--tick-color), var(--tick-color)) top right / var(--tick-w) var(--tick),
+    linear-gradient(var(--tick-color), var(--tick-color)) bottom left / var(--tick) var(--tick-w),
+    linear-gradient(var(--tick-color), var(--tick-color)) bottom left / var(--tick-w) var(--tick),
+    linear-gradient(var(--tick-color), var(--tick-color)) bottom right / var(--tick) var(--tick-w),
+    linear-gradient(var(--tick-color), var(--tick-color)) bottom right / var(--tick-w) var(--tick);
+  background-repeat: no-repeat;
+}
+
+/** 1px dot grid for data/diagram panels. */
+@utility dot-grid {
+  background-image: radial-gradient(rgb(169 199 194 / 0.16) 1px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
+/** Legacy (inner pages): faint square grid. */
 @utility grid-lines {
   background-image:
-    linear-gradient(to right, rgb(44 255 152 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(44 255 152 / 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgb(169 199 194 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(169 199 194 / 0.05) 1px, transparent 1px);
   background-size: 56px 56px;
+}
+
+/* ---------- Components that are easier in CSS ---------- */
+
+/* Pictogram strokes stay hairline at any size. */
+.pg * {
+  vector-effect: non-scaling-stroke;
+}
+
+/* Bracket button: corner ticks slide outward on hover/focus. */
+.btn-bracket {
+  position: relative;
+  isolation: isolate;
+}
+.btn-bracket::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: var(--color-volt);
+  transition: inset 0.35s var(--ease-out-expo), opacity 0.35s;
+}
+.btn-bracket::before {
+  --tick: 9px;
+  --tick-w: 1.5px;
+  --tick-color: currentColor;
+  background:
+    linear-gradient(currentColor, currentColor) top left / var(--tick) var(--tick-w),
+    linear-gradient(currentColor, currentColor) top left / var(--tick-w) var(--tick),
+    linear-gradient(currentColor, currentColor) top right / var(--tick) var(--tick-w),
+    linear-gradient(currentColor, currentColor) top right / var(--tick-w) var(--tick),
+    linear-gradient(currentColor, currentColor) bottom left / var(--tick) var(--tick-w),
+    linear-gradient(currentColor, currentColor) bottom left / var(--tick-w) var(--tick),
+    linear-gradient(currentColor, currentColor) bottom right / var(--tick) var(--tick-w),
+    linear-gradient(currentColor, currentColor) bottom right / var(--tick-w) var(--tick);
+  background-repeat: no-repeat;
+}
+.btn-bracket::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  border: 1px solid var(--color-line-strong);
+  transition: border-color 0.3s, background-color 0.3s;
+}
+.btn-bracket:hover::before,
+.btn-bracket:focus-visible::before {
+  inset: -5px;
+}
+.btn-bracket:hover::after,
+.btn-bracket:focus-visible::after {
+  border-color: transparent;
+  background-color: rgb(44 255 152 / 0.06);
+}
+.band-bone .btn-bracket::before {
+  color: var(--color-volt-ink);
+}
+.band-bone .btn-bracket::after {
+  border-color: var(--color-line-ink);
+}
+
+/* Link with a trace underline that draws in. */
+.link-trace {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.5s var(--ease-out-expo), color 0.2s;
+}
+.link-trace:hover,
+.link-trace:focus-visible {
+  animation: trace-redraw 0.6s var(--ease-out-expo);
+}
+@keyframes trace-redraw {
+  from {
+    background-size: 0% 1px;
+  }
+  to {
+    background-size: 100% 1px;
+  }
+}
+
+/* Display headline line mask reveal (on load). */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+  padding-inline: 0.06em;
+  margin-inline: -0.06em;
+}
+.line-mask > .line-inner {
+  display: block;
+}
+
+/* Manifesto words (brightening driven below; readable final state by default). */
+.mf-word {
+  color: var(--color-mist);
+}
+.mf-mark {
+  background-image: linear-gradient(var(--color-volt), var(--color-volt));
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  color: var(--color-abyss-950);
+  padding: 0 0.12em;
+  margin: 0 -0.04em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Focus-area scroll spy (Home 02). Active index is set by <ScrollSpy> on the root. */
+.spy-item {
+  color: var(--color-slate);
+  transition: color 0.5s var(--ease-out-expo);
+}
+.spy-item .spy-node {
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.4s, transform 0.4s var(--ease-out-expo);
+}
+.spy-item .spy-name {
+  transition: transform 0.6s var(--ease-out-expo);
+}
+[data-spy-active="0"] [data-spy-item="0"],
+[data-spy-active="1"] [data-spy-item="1"],
+[data-spy-active="2"] [data-spy-item="2"],
+[data-spy-active="3"] [data-spy-item="3"] {
+  color: var(--color-mist);
+}
+[data-spy-active="0"] [data-spy-item="0"] .spy-node,
+[data-spy-active="1"] [data-spy-item="1"] .spy-node,
+[data-spy-active="2"] [data-spy-item="2"] .spy-node,
+[data-spy-active="3"] [data-spy-item="3"] .spy-node {
+  opacity: 1;
+  transform: none;
+}
+[data-spy-active="0"] [data-spy-item="0"] .spy-name,
+[data-spy-active="1"] [data-spy-item="1"] .spy-name,
+[data-spy-active="2"] [data-spy-item="2"] .spy-name,
+[data-spy-active="3"] [data-spy-item="3"] .spy-name {
+  transform: translateX(0.75rem);
+}
+[data-spy-active="0"] [data-spy-item="0"] .spy-accent,
+[data-spy-active="1"] [data-spy-item="1"] .spy-accent,
+[data-spy-active="2"] [data-spy-item="2"] .spy-accent,
+[data-spy-active="3"] [data-spy-item="3"] .spy-accent {
+  color: var(--color-volt);
+}
+.spy-rail-fill {
+  transform-origin: top;
+  transform: scaleY(calc((var(--spy-step, 0) + 1) / var(--spy-total, 4)));
+  transition: transform 0.6s var(--ease-out-expo);
+}
+.spy-panel {
+  transition: opacity 0.6s var(--ease-out-expo);
+}
+
+/* Disclosure rows (portfolio index, FAQ) — animate the open panel height where supported. */
+details.disclosure::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition: block-size 0.5s var(--ease-out-expo), content-visibility 0.5s allow-discrete;
+}
+details.disclosure[open]::details-content {
+  block-size: auto;
+}
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
 }
 
 /* Long-form article body rendered from Markdown */
 .prose-ct {
-  @apply text-[1.0625rem] leading-8 text-mist;
+  @apply text-[1.0625rem] leading-8 text-fog;
+  max-width: 68ch;
 }
 .prose-ct > * + * {
   @apply mt-5;
@@ -87,35 +487,181 @@
 .prose-ct h2,
 .prose-ct h3,
 .prose-ct h4 {
-  @apply mt-10 font-display font-semibold text-white;
+  @apply mt-12 font-display text-mist;
+  font-weight: 560;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 .prose-ct h2 {
-  @apply text-2xl;
+  font-size: clamp(1.625rem, 1.2rem + 1vw, 2.125rem);
 }
 .prose-ct h3,
 .prose-ct h4 {
-  @apply text-xl;
+  font-size: clamp(1.3rem, 1.1rem + 0.5vw, 1.5rem);
 }
 .prose-ct strong {
-  @apply font-semibold text-white;
+  @apply font-semibold text-mist;
 }
 .prose-ct a {
-  @apply text-neon underline decoration-neon/40 underline-offset-4 hover:decoration-neon;
+  @apply text-volt underline decoration-volt/40 underline-offset-4 hover:decoration-volt;
 }
 .prose-ct ul,
 .prose-ct ol {
   @apply space-y-2 pl-6;
 }
 .prose-ct ul {
-  @apply list-disc marker:text-neon;
+  @apply list-disc marker:text-volt;
 }
 .prose-ct ol {
-  @apply list-decimal marker:text-neon;
+  @apply list-decimal marker:text-volt;
 }
 .prose-ct blockquote {
-  @apply border-l-2 border-neon pl-5 italic text-white;
+  @apply border-l-2 border-volt pl-5 text-mist;
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 1.35em;
+  line-height: 1.4;
 }
 
+/* ==========================================================================
+   Motion — everything lives behind prefers-reduced-motion: no-preference
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  /* Load-in line reveal for display headlines. */
+  .line-mask > .line-inner {
+    animation: line-up 1.1s var(--ease-line) both;
+    animation-delay: calc(120ms + var(--i, 0) * 90ms);
+  }
+  @keyframes line-up {
+    from {
+      transform: translateY(105%);
+    }
+    to {
+      transform: none;
+    }
+  }
+  .fade-in-late {
+    animation: rise 1s var(--ease-out-expo) both;
+    animation-delay: calc(500ms + var(--i, 0) * 80ms);
+  }
+
+  /* Generic [data-reveal]: CSS scroll-driven where supported … */
+  @supports (animation-timeline: view()) {
+    [data-reveal] {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+    [data-reveal="fade"] {
+      animation-name: reveal-fade;
+    }
+
+    /* Manifesto: each word brightens across the paragraph's own view timeline. */
+    .mf-root {
+      view-timeline-name: --mf;
+    }
+    .mf-word {
+      animation: mf-bright linear both;
+      animation-timeline: --mf;
+      animation-range: cover calc(18% + var(--p) * 34%) cover calc(22% + var(--p) * 34%);
+    }
+    .mf-mark {
+      animation: mf-mark linear both;
+      animation-timeline: --mf;
+      animation-range: cover calc(18% + var(--p) * 34%) cover calc(26% + var(--p) * 34%);
+    }
+  }
+
+  /* … and an IntersectionObserver fallback (RevealObserver sets data-inview). */
+  @supports not (animation-timeline: view()) {
+    html.reveal-js [data-reveal] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition:
+        opacity 0.9s var(--ease-out-expo),
+        transform 0.9s var(--ease-out-expo);
+    }
+    html.reveal-js [data-reveal][data-inview] {
+      opacity: 1;
+      transform: none;
+    }
+    html.reveal-js .mf-root .mf-word {
+      transition: color 0.6s ease;
+      transition-delay: calc(var(--p) * 1.2s);
+    }
+    html.reveal-js .mf-root:not([data-inview]) .mf-word {
+      color: var(--color-slate);
+    }
+    html.reveal-js .mf-root[data-inview] .mf-word {
+      color: var(--color-mist);
+    }
+  }
+
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes reveal-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes mf-bright {
+    from {
+      color: var(--color-slate);
+    }
+    to {
+      color: var(--color-mist);
+    }
+  }
+  @keyframes mf-mark {
+    from {
+      background-size: 0% 100%;
+      color: var(--color-mist);
+    }
+    to {
+      background-size: 100% 100%;
+      color: var(--color-abyss-950);
+    }
+  }
+
+  /* Circuit pulses travelling along traces. */
+  .trace-pulse {
+    animation: trace-pulse 5.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    animation-delay: calc(2.4s + var(--i, 0) * 1.1s);
+  }
+  /* Use with pathLength="1" and stroke-dasharray="<len> 2": one dash travels start → end, then rests. */
+  @keyframes trace-pulse {
+    0% {
+      stroke-dashoffset: 0.08;
+    }
+    72%,
+    100% {
+      stroke-dashoffset: -1.08;
+    }
+  }
+  .ring-spin {
+    animation: ring-spin 60s linear infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  @keyframes ring-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+/* Reduced motion: final state everywhere. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -124,5 +670,8 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .trace-pulse {
+    display: none;
   }
 }

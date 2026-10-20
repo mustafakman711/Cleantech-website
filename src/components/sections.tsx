@@ -1,6 +1,11 @@
+/**
+ * Content sections shared by inner pages (restyled to the v2 hairline system; Phase 2b may redesign further).
+ * Exports kept stable: CtaBand, ImpactTargets, PartnerGrid, SdgGrid, StrengthGrid, CheckList, SectorClusters,
+ * ValueCreationList, PortfolioCard, TeamGrid, PostCard, Faq.
+ */
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check, ChevronDown, Globe } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Plus } from "lucide-react";
 import { copy } from "@/content/copy";
 import {
   clusters,
@@ -17,34 +22,29 @@ import type { Company } from "@/content/portfolio";
 import type { Member } from "@/content/team";
 import { formatDate, tx, type Locale } from "@/lib/i18n";
 import type { Post } from "@/lib/posts";
-import { CircuitField } from "./CircuitField";
 import { LinkedInIcon, sectorIcons } from "./icons";
-import { ButtonLink, Eyebrow } from "./ui";
+import { CompanyPictogram } from "./pictograms";
+import { ButtonLink, ChapterLabel, CornerTicks, HairlineList } from "./ui";
 
+const pad = (n: number) => String(n).padStart(2, "0");
+
+/** Four themes as a hairline 2-col grid; each theme lists its sectors as rows with icons. */
 export function SectorClusters({ locale }: { locale: Locale }) {
   return (
-    <div className="grid gap-5 md:grid-cols-2">
+    <div className="grid border-t border-line md:grid-cols-2">
       {clusters.map((cluster, i) => (
-        <article
-          key={cluster.title.en}
-          className="group relative overflow-hidden rounded-3xl border border-white/10 bg-petrol-850/70 p-7 transition-colors hover:border-neon/40 sm:p-8"
-        >
+        <article key={cluster.title.en} className="border-b border-line py-8 md:px-8 md:odd:border-r md:odd:pl-0 md:even:pr-0">
           <div className="flex items-baseline justify-between gap-4">
-            <h3 className="font-display text-2xl font-semibold">{tx(cluster.title, locale)}</h3>
-            <span className="font-display text-sm text-neon/70">0{i + 1}</span>
+            <h3 className="type-h3 text-mist">{tx(cluster.title, locale)}</h3>
+            <span className="type-label text-slate">[ {pad(i + 1)} ]</span>
           </div>
-          <p className="mt-3 text-mist/80">{tx(cluster.summary, locale)}</p>
-          <ul className="mt-6 flex flex-wrap gap-2.5">
+          <p className="mt-3 max-w-[48ch] text-fog">{tx(cluster.summary, locale)}</p>
+          <ul className="mt-6 border-t border-line">
             {cluster.sectors.map((s) => {
               const Icon = sectorIcons[s.key];
               return (
-                <li
-                  key={s.key}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-petrol-900/70 py-2 pl-2 pr-4 text-sm font-medium"
-                >
-                  <span className="inline-flex size-7 items-center justify-center rounded-full bg-neon/15 text-neon">
-                    <Icon aria-hidden className="size-4" />
-                  </span>
+                <li key={s.key} className="flex items-center gap-3 border-b border-line py-3 text-[0.9375rem] text-mist">
+                  <Icon aria-hidden className="size-4 shrink-0 text-volt" strokeWidth={1.5} />
                   {tx(s.name, locale)}
                 </li>
               );
@@ -57,108 +57,102 @@ export function SectorClusters({ locale }: { locale: Locale }) {
 }
 
 export function CheckList({ items, locale, columns = 2 }: { items: { tr: string; en: string }[]; locale: Locale; columns?: 2 | 3 }) {
-  return (
-    <ul className={`grid gap-4 sm:grid-cols-2 ${columns === 3 ? "lg:grid-cols-3" : ""}`}>
-      {items.map((item, i) => (
-        <li key={item.en} className="flex gap-4 rounded-2xl border border-white/10 bg-petrol-850/60 p-5">
-          <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-neon font-display text-sm font-bold text-petrol-950">
-            {String(i + 1).padStart(2, "0")}
-          </span>
-          <span className="self-center font-medium leading-snug">{tx(item, locale)}</span>
-        </li>
-      ))}
-    </ul>
-  );
+  return <HairlineList columns={columns} items={items.map((item) => ({ key: item.en, title: tx(item, locale) }))} />;
 }
 
 export function ValueCreationList({ locale }: { locale: Locale }) {
-  return (
-    <ul className="divide-y divide-white/10 rounded-3xl border border-white/10 bg-petrol-850/60">
-      {valueCreation.map((v) => (
-        <li key={v.en} className="flex items-center gap-4 px-6 py-5">
-          <Check aria-hidden className="size-5 shrink-0 text-neon" />
-          <span className="font-medium">{tx(v, locale)}</span>
-        </li>
-      ))}
-    </ul>
-  );
+  return <HairlineList items={valueCreation.map((v) => ({ key: v.en, title: tx(v, locale) }))} />;
 }
 
+/**
+ * Portfolio company card (portfolio page until Phase 2b). Header row wraps and the website pill truncates
+ * (QA #1), the stats row sticks to the bottom (QA #8), logos sit in a fixed tile (QA #7).
+ */
 export function PortfolioCard({ company, locale, detailed = false }: { company: Company; locale: Locale; detailed?: boolean }) {
   const c = copy[locale].common;
+  const host = company.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
   return (
-    <article
-      id={company.slug}
-      className="flex scroll-mt-28 flex-col rounded-3xl border border-white/10 bg-gradient-to-b from-petrol-800/80 to-petrol-850/80 p-7 sm:p-8"
-    >
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex h-16 shrink-0 items-center rounded-2xl bg-white/5 px-4">
-          <Image src={company.logo} alt={company.name} width={company.logoWidth} height={company.logoHeight} className="h-9 w-auto" />
+    <article id={company.slug} className="relative flex min-w-0 scroll-mt-28 flex-col border border-line bg-abyss-850/40 p-6 sm:p-8">
+      <CornerTicks />
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex h-12 items-center">
+          <Image src={company.logo} alt={company.name} width={company.logoWidth} height={company.logoHeight} className="h-9 w-auto max-w-[11rem] object-contain object-left" />
         </div>
+        <CompanyPictogram slug={company.slug} className="size-11 text-fog" />
+      </div>
+      <h3 className="type-h3 mt-8 text-mist">{company.name}</h3>
+      <p className="type-label mt-2 text-slate">{tx(company.sector, locale)}</p>
+      <p className="mt-4 leading-relaxed text-fog">{tx(company.description, locale)}</p>
+      <div aria-hidden className="min-h-6 flex-1" />
+      <dl className="grid grid-cols-3 gap-4 border-t border-line pt-6">
+        {company.highlights.map((h) => (
+          <div key={h.label.en} className="min-w-0">
+            <dt className="sr-only">{tx(h.label, locale)}</dt>
+            <dd className="text-[clamp(1.125rem,0.9rem+0.8vw,1.5rem)] font-[450] leading-tight tracking-[-0.02em] text-mist [font-stretch:110%]">{tx(h.value, locale)}</dd>
+            <dd className="mt-1.5 text-xs leading-snug text-slate">{tx(h.label, locale)}</dd>
+          </div>
+        ))}
+      </dl>
+      <div className="mt-6 flex min-w-0 flex-wrap items-center gap-x-6 gap-y-2 border-t border-line pt-5">
         <a
           href={company.website}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/10 px-3 py-1.5 text-xs text-white/80 hover:border-neon hover:text-neon"
+          className="type-label inline-flex min-h-10 min-w-0 max-w-full items-center gap-1.5 text-fog hover:text-volt"
         >
-          <Globe aria-hidden className="size-3.5" />
-          {company.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}
+          <span className="truncate">{host}</span>
+          <ArrowUpRight aria-hidden className="size-3.5 shrink-0 text-volt" />
         </a>
+        <span className="type-label text-slate">
+          {c.headquarters}: {tx(company.hq, locale)}
+        </span>
       </div>
-      <h3 className="mt-6 font-display text-2xl font-semibold">{company.name}</h3>
-      <p className="mt-1 text-sm font-medium text-neon">{tx(company.sector, locale)}</p>
-      <p className="mt-4 leading-relaxed text-mist/85">{tx(company.description, locale)}</p>
-      <dl className="mt-6 grid grid-cols-3 gap-3 border-t border-white/10 pt-6">
-        {company.highlights.map((h) => (
-          <div key={h.label.en}>
-            <dt className="sr-only">{tx(h.label, locale)}</dt>
-            <dd className="whitespace-nowrap font-display text-xl font-semibold text-white">{tx(h.value, locale)}</dd>
-            <dd className="mt-1 text-xs leading-snug text-mist/70">{tx(h.label, locale)}</dd>
-          </div>
-        ))}
-      </dl>
       {detailed && (
-        <div className="mt-6 grid gap-6 border-t border-white/10 pt-6 sm:grid-cols-2">
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">{c.founders}</h4>
-            <ul className="mt-3 space-y-2">
-              {company.founders.map((f) => (
-                <li key={f.name}>
-                  <a
-                    href={f.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-2 text-sm hover:text-neon"
-                  >
-                    <LinkedInIcon className="size-4 text-neon" />
-                    <span>
-                      {f.name} <span className="text-white/60">· {tx(f.role, locale)}</span>
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">{c.headquarters}</h4>
-            <p className="mt-3 text-sm">{tx(company.hq, locale)}</p>
-          </div>
+        <div className="mt-2">
+          <h4 className="type-label mt-4 text-slate">{c.founders}</h4>
+          <ul className="mt-2">
+            {company.founders.map((f) => (
+              <li key={f.name}>
+                <a href={f.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-10 items-center gap-2 text-sm text-mist hover:text-volt">
+                  <LinkedInIcon className="size-4 text-volt" />
+                  <span>
+                    {f.name} <span className="text-slate">· {tx(f.role, locale)}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </article>
   );
 }
 
-export function PartnerGrid({ locale }: { locale: Locale }) {
+/** Fund partners as a hairline 3-col row: mono role, logo at a fixed optical height, description. */
+export function PartnerGrid({ locale, tone = "dark" }: { locale: Locale; tone?: "dark" | "light" }) {
+  const light = tone === "light";
   return (
-    <div className="grid gap-5 md:grid-cols-3">
-      {partners.map((p) => (
-        <article key={p.name} className="flex flex-col rounded-3xl border border-white/10 bg-petrol-850/60 p-7">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neon">{tx(p.role, locale)}</p>
-          <div className="mt-6 flex h-14 items-center">
-            <Image src={p.logo} alt={p.name} width={p.logoWidth} height={p.logoHeight} className="h-11 w-auto" />
+    <div className={`grid border-t md:grid-cols-3 ${light ? "border-line-ink" : "border-line"}`}>
+      {partners.map((p, i) => (
+        <article
+          key={p.name}
+          className={`flex flex-col border-b py-8 md:border-b-0 md:px-8 md:first:pl-0 md:last:pr-0 ${light ? "border-line-ink" : "border-line"} ${
+            i < partners.length - 1 ? (light ? "md:border-r md:border-line-ink" : "md:border-r md:border-line") : ""
+          }`}
+        >
+          <p className={`type-label ${light ? "text-bone-ink" : "text-slate"}`}>
+            {pad(i + 1)} — {tx(p.role, locale)}
+          </p>
+          <div className="mt-8 flex h-12 items-center">
+            <Image
+              src={p.logo}
+              alt={p.name}
+              width={p.logoWidth}
+              height={p.logoHeight}
+              className={`w-auto max-w-[12rem] object-contain object-left ${p.logoHeight / p.logoWidth < 0.2 ? "h-6" : "h-10"} ${light ? "invert" : ""}`}
+            />
           </div>
-          <p className="mt-6 text-sm leading-relaxed text-mist/80">{tx(p.description, locale)}</p>
+          <p className={`mt-8 text-[0.9375rem] leading-relaxed ${light ? "text-bone-ink" : "text-fog"}`}>{tx(p.description, locale)}</p>
         </article>
       ))}
     </div>
@@ -166,50 +160,37 @@ export function PartnerGrid({ locale }: { locale: Locale }) {
 }
 
 export function StrengthGrid({ locale }: { locale: Locale }) {
-  return (
-    <div className="grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
-      {strengths.map((s) => (
-        <div key={s.title.en} className="bg-petrol-900 p-7">
-          <span className="inline-flex size-10 items-center justify-center rounded-full border border-neon/40 text-neon">
-            <Check aria-hidden className="size-5" />
-          </span>
-          <h3 className="mt-5 font-display text-lg font-semibold">{tx(s.title, locale)}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-mist/80">{tx(s.text, locale)}</p>
-        </div>
-      ))}
-    </div>
-  );
+  return <HairlineList columns={3} items={strengths.map((s) => ({ key: s.title.en, title: tx(s.title, locale), text: tx(s.text, locale) }))} />;
 }
 
+/** Impact targets as true-scale bars (QA #23: width = value% of 100). */
 export function ImpactTargets({ locale }: { locale: Locale }) {
   const target = copy[locale].common.target;
   const pct = (v: number) => (locale === "tr" ? `%${v}` : `${v}%`);
   return (
-    <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr]">
-      <ul className="space-y-6">
+    <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr]">
+      <ul className="border-t border-line">
         {impactTargets.map((t) => (
-          <li key={t.label.en}>
+          <li key={t.label.en} className="border-b border-line py-5">
             <div className="flex items-baseline justify-between gap-6">
-              <span className="text-sm font-medium sm:text-base">{tx(t.label, locale)}</span>
-              <span className="shrink-0 font-display text-lg font-semibold text-neon">
+              <span className="text-[0.9375rem] text-mist sm:text-base">{tx(t.label, locale)}</span>
+              <span className="type-mono shrink-0 text-volt">
                 <span className="sr-only">{target}: </span>
                 {pct(t.value)}
               </span>
             </div>
-            <div aria-hidden className="mt-2.5 h-2 overflow-hidden rounded-full bg-white/10">
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-neon-600 to-neon"
-                style={{ width: `${Math.min(100, t.value * 3)}%` }}
-              />
+            <div aria-hidden className="relative mt-3 h-px bg-line-strong">
+              <div className="absolute inset-y-[-1px] left-0 bg-volt" style={{ width: `${Math.min(100, t.value)}%` }} />
+              <span className="absolute top-1/2 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-volt" style={{ left: `${Math.min(100, t.value)}%` }} />
             </div>
           </li>
         ))}
       </ul>
-      <div className="grid gap-5 self-start">
+      <div className="grid gap-px self-start border border-line bg-line">
         {impactHighlights.map((h) => (
-          <div key={h.label.en} className="rounded-3xl bg-neon p-8 text-petrol-950">
-            <p className="font-display text-5xl font-bold">{tx(h.value, locale)}</p>
-            <p className="mt-3 font-medium leading-snug">{tx(h.label, locale)}</p>
+          <div key={h.label.en} className="bg-abyss-900 p-8">
+            <p className="type-stat text-mist">{tx(h.value, locale)}</p>
+            <p className="mt-4 text-fog">{tx(h.label, locale)}</p>
           </div>
         ))}
       </div>
@@ -219,33 +200,47 @@ export function ImpactTargets({ locale }: { locale: Locale }) {
 
 export function SdgGrid({ locale }: { locale: Locale }) {
   return (
-    <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+    <ul className="grid grid-cols-2 border-l border-t border-line sm:grid-cols-3 lg:grid-cols-5">
       {sdgs.map((s) => (
-        <li key={s.number} className="relative overflow-hidden rounded-2xl border border-white/10 bg-petrol-850/70 p-5">
-          <span aria-hidden className="absolute inset-x-0 top-0 h-1" style={{ backgroundColor: s.color }} />
+        <li key={s.number} className="relative border-b border-r border-line p-5">
           <div className="flex items-start justify-between gap-2">
-            <span className="font-display text-xs font-semibold tracking-widest text-white/60">
-              {locale === "tr" ? "SKA" : "SDG"} {s.number}
+            <span className="type-label flex items-center gap-2 text-slate">
+              <span aria-hidden className="size-1.5 rounded-full" style={{ backgroundColor: s.color }} />
+              {locale === "tr" ? "SKA" : "SDG"} {pad(s.number)}
             </span>
-            <Image src={`/sdg/sdg-${s.number}.png`} alt="" width={40} height={40} className="h-8 w-auto opacity-90" />
+            <Image src={`/sdg/sdg-${s.number}.png`} alt="" width={40} height={40} className="size-10 object-contain opacity-80 grayscale" />
           </div>
-          <p className="mt-6 font-medium leading-snug">{tx(s.name, locale)}</p>
+          <p className="mt-6 text-[0.9375rem] leading-snug text-mist">{tx(s.name, locale)}</p>
         </li>
       ))}
     </ul>
   );
 }
 
-export function Faq({ locale, items = faq }: { locale: Locale; items?: typeof faq }) {
+/** FAQ accordion: hairline rows, +/× icon, native <details>. */
+export function Faq({ locale, items = faq, tone = "dark" }: { locale: Locale; items?: typeof faq; tone?: "dark" | "light" }) {
+  const light = tone === "light";
   return (
-    <div className="divide-y divide-white/10 border-y border-white/10">
-      {items.map((item) => (
-        <details key={item.q.en} className="group py-2">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-4 font-display text-lg font-medium marker:hidden hover:text-neon [&::-webkit-details-marker]:hidden">
-            {tx(item.q, locale)}
-            <ChevronDown aria-hidden className="size-5 shrink-0 text-neon transition-transform group-open:rotate-180" />
+    <div className={`border-t ${light ? "border-line-ink" : "border-line"}`}>
+      {items.map((item, i) => (
+        <details key={item.q.en} className={`disclosure group border-b ${light ? "border-line-ink" : "border-line"}`}>
+          <summary
+            className={`grid cursor-pointer grid-cols-[2.5rem_1fr_auto] items-start gap-x-3 py-6 text-lg leading-snug transition-colors md:text-xl ${
+              light ? "text-abyss-900 hover:text-volt-ink" : "text-mist hover:text-volt"
+            }`}
+          >
+            <span className={`type-label pt-1.5 ${light ? "text-bone-ink" : "text-slate"}`}>{pad(i + 1)}</span>
+            <span className="font-[450] tracking-[-0.01em]">{tx(item.q, locale)}</span>
+            <span
+              aria-hidden
+              className={`mt-0.5 grid size-7 place-items-center rounded-full border transition-[transform,border-color,background-color] duration-500 group-open:rotate-45 ${
+                light ? "border-line-ink" : "border-line-strong group-open:border-volt group-open:bg-volt group-open:text-abyss-950"
+              }`}
+            >
+              <Plus className="size-3.5" strokeWidth={1.75} />
+            </span>
           </summary>
-          <p className="pb-5 pr-10 leading-relaxed text-mist/85">{tx(item.a, locale)}</p>
+          <p className={`max-w-[62ch] pb-7 pl-[3.25rem] pr-10 leading-relaxed ${light ? "text-bone-ink" : "text-fog"}`}>{tx(item.a, locale)}</p>
         </details>
       ))}
     </div>
@@ -254,24 +249,24 @@ export function Faq({ locale, items = faq }: { locale: Locale; items?: typeof fa
 
 export function TeamGrid({ members, locale }: { members: Member[]; locale: Locale }) {
   return (
-    <ul className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
+    <ul className="grid grid-cols-2 gap-x-5 gap-y-12 sm:grid-cols-3 lg:grid-cols-4">
       {members.map((m) => (
-        <li key={m.name}>
-          <div className="group relative aspect-square overflow-hidden rounded-3xl bg-black">
+        <li key={m.name} className="group min-w-0">
+          <div className="relative aspect-[4/5] overflow-hidden bg-abyss-850">
             <Image
               src={m.photo}
               alt={m.name}
               fill
-              sizes="(min-width: 1024px) 280px, (min-width: 640px) 33vw, 50vw"
-              className="object-cover grayscale transition duration-500 group-hover:scale-[1.03]"
+              sizes="(min-width: 1024px) 320px, (min-width: 640px) 33vw, 50vw"
+              className="object-cover object-top grayscale transition duration-700 group-hover:grayscale-0 group-focus-within:grayscale-0"
             />
-            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-petrol-950/60 via-transparent" />
+            <div aria-hidden className="absolute inset-0 bg-petrol-800/25 mix-blend-multiply" />
           </div>
-          <div className="mt-4 flex items-start justify-between gap-3">
-            <div>
-              <h3 className="font-display text-lg font-semibold leading-tight">{m.name}</h3>
-              {m.organization && <p className="mt-1 text-sm font-medium text-neon">{m.organization}</p>}
-              <p className="mt-0.5 text-sm text-mist/75">{tx(m.title, locale)}</p>
+          <div className="mt-4 flex items-start justify-between gap-3 border-t border-line pt-4">
+            <div className="min-w-0">
+              <h3 className="text-base font-medium leading-tight text-mist text-balance sm:text-lg">{m.name}</h3>
+              {m.organization && <p className="type-label mt-2 text-fog">{m.organization}</p>}
+              <p className="mt-1 text-sm text-slate">{tx(m.title, locale)}</p>
             </div>
             {m.linkedin && (
               <a
@@ -279,7 +274,7 @@ export function TeamGrid({ members, locale }: { members: Member[]; locale: Local
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${m.name} LinkedIn`}
-                className="mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-white/10 text-white/80 hover:border-neon hover:text-neon"
+                className="-mr-1 -mt-1 inline-flex size-10 shrink-0 items-center justify-center rounded-full text-fog hover:text-volt"
               >
                 <LinkedInIcon className="size-4" />
               </a>
@@ -291,55 +286,70 @@ export function TeamGrid({ members, locale }: { members: Member[]; locale: Local
   );
 }
 
+/** Post card: 16:9 image (QA #11), focus ring on the whole card (QA #12), full-card link. */
 export function PostCard({ post, locale }: { post: Post; locale: Locale }) {
   const href = `/${locale}/${post.type}/${post.slug}`;
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-petrol-850/60 transition-colors hover:border-neon/40">
+    <article className="group relative flex flex-col border-t border-line pt-5 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-4 has-[a:focus-visible]:outline-volt">
       {post.image && (
-        <div className="relative aspect-[2/1] overflow-hidden bg-petrol-800">
+        <div className="relative aspect-video overflow-hidden bg-abyss-850">
           <Image
             src={post.image}
             alt=""
             fill
-            sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
-            className="object-cover transition duration-500 group-hover:scale-[1.03]"
+            sizes="(min-width: 1024px) 420px, (min-width: 640px) 50vw, 100vw"
+            className="object-cover saturate-[0.85] transition duration-700 group-hover:scale-[1.02] group-hover:saturate-100"
           />
         </div>
       )}
-      <div className="flex flex-1 flex-col p-6">
-        <time dateTime={post.date} className="text-xs font-medium uppercase tracking-wider text-neon/80">
+      <div className="flex flex-1 flex-col pt-5">
+        <time dateTime={post.date} className="type-label text-slate">
           {formatDate(post.date, locale)}
         </time>
-        <h3 className="mt-3 line-clamp-3 font-display text-lg font-semibold leading-snug">
-          <Link href={href} className="after:absolute after:inset-0">
+        <h3 className="mt-3 line-clamp-3 text-lg font-medium leading-snug text-mist transition-colors group-hover:text-volt">
+          <Link href={href} className="outline-none after:absolute after:inset-0">
             {post.title}
           </Link>
         </h3>
-        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-mist/75">{post.excerpt}</p>
-        <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-neon">
+        <p className="mt-3 line-clamp-3 text-[0.9375rem] leading-relaxed text-fog">{post.excerpt}</p>
+        <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm text-mist">
           {copy[locale].common.readMore}
-          <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-0.5" />
+          <ArrowRight aria-hidden className="size-4 text-volt transition-transform group-hover:translate-x-0.5" strokeWidth={1.75} />
         </span>
       </div>
     </article>
   );
 }
 
+/**
+ * Closing "apply" band for inner pages: two application panels (founders / investors) in a hairline split.
+ * (The footer finale carries the general contact CTA, so this band stays specific.)
+ */
 export function CtaBand({ locale }: { locale: Locale }) {
   const c = copy[locale];
+  const p = c.contactPage;
+  const panels = [
+    { title: p.startupTitle, text: p.startupText, href: contact.startupFormUrl, label: c.common.applyStartup, primary: true },
+    { title: p.investorTitle, text: p.investorText, href: contact.investorFormUrl, label: c.common.applyInvestor, primary: false },
+  ];
   return (
-    <section className="relative overflow-hidden bg-petrol-800">
-      <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgb(44_255_152/0.18),transparent_65%)]" />
-      <CircuitField className="absolute inset-x-0 bottom-0 h-40 w-full opacity-50" />
-      <div className="container-site relative py-24 text-center sm:py-32">
-        <Eyebrow className="justify-center">{c.nav.contact}</Eyebrow>
-        <h2 className="mx-auto mt-5 max-w-3xl font-display text-3xl font-semibold leading-tight text-balance sm:text-5xl">{c.cta.title}</h2>
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-mist/90">{c.cta.lead}</p>
-        <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-          <ButtonLink href={contact.startupFormUrl}>{c.common.applyStartup}</ButtonLink>
-          <ButtonLink href={contact.investorFormUrl} variant="outline">
-            {c.common.applyInvestor}
-          </ButtonLink>
+    <section className="section-y relative border-t border-line bg-abyss-900">
+      <div className="container-site">
+        <ChapterLabel label={c.footer.apply} />
+        <h2 className="type-h2 mt-8 max-w-[20ch] text-mist">{c.cta.title}</h2>
+        <div className="mt-14 grid border-t border-line md:grid-cols-2">
+          {panels.map((panel, i) => (
+            <div key={panel.title} className={`flex flex-col py-10 md:px-10 ${i === 0 ? "md:border-r md:border-line md:pl-0" : "border-t border-line md:border-t-0 md:pr-0"}`}>
+              <p className="type-label text-slate">[ {pad(i + 1)} ]</p>
+              <h3 className="type-h3 mt-4 text-mist">{panel.title}</h3>
+              <p className="mt-3 max-w-[44ch] text-fog">{panel.text}</p>
+              <div className="mt-8">
+                <ButtonLink href={panel.href} variant={panel.primary ? "primary" : "bracket"}>
+                  {panel.label}
+                </ButtonLink>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
