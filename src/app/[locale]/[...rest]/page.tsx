@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { copy } from "@/content/copy";
+
+export const metadata: Metadata = {
+  title: `${copy.tr.notFound.metaTitle} · ${copy.en.notFound.metaTitle}`,
+  robots: { index: false },
+};
 
 /**
  * Catch-all for unknown paths inside a valid locale. Calling notFound() here makes Next render

@@ -67,7 +67,7 @@ export function PostArticle({ locale, type, slug }: { locale: Locale; type: Post
         <header className="relative overflow-hidden bg-petrol-800">
           <div aria-hidden className="grid-lines absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
           <div className="container-site relative max-w-4xl pb-14 pt-36 sm:pt-44">
-            <Link href={`/${locale}/${type}`} className="inline-flex items-center gap-2 text-sm font-medium text-neon hover:text-neon-300">
+            <Link href={`/${locale}/${type}`} className="type-label -my-2 inline-flex min-h-10 items-center gap-2 text-fog hover:text-volt">
               <ArrowLeft aria-hidden className="size-4" />
               {pageCopy(locale, type).title}
             </Link>
@@ -89,7 +89,7 @@ export function PostArticle({ locale, type, slug }: { locale: Locale; type: Post
         </header>
         <div className="container-site max-w-4xl py-14 sm:py-20">
           {post.image && (
-            <div className="relative mb-12 aspect-[2/1] overflow-hidden rounded-3xl border border-white/10">
+            <div className="relative mb-12 aspect-video overflow-hidden border border-line">
               <Image src={post.image} alt="" fill priority sizes="(min-width: 896px) 832px, 100vw" className="object-cover" />
             </div>
           )}

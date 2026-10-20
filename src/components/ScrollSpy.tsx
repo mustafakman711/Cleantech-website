@@ -13,6 +13,7 @@ export function ScrollSpy({ children, className, total, id, labelledBy }: { chil
   useEffect(() => {
     const root = ref.current;
     if (!root) return;
+    root.setAttribute("data-spy-ready", "");
     const panels = Array.from(root.querySelectorAll<HTMLElement>("[data-spy-panel]"));
     const set = (i: string) => {
       root.setAttribute("data-spy-active", i);

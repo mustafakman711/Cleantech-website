@@ -48,26 +48,24 @@ const pulses = [
 const LEAF = "M0 0 C-17 -14 -19 -46 0 -68 C19 -46 17 -14 0 0 Z";
 const VEINS = "M0 -2 V-60 M0 -22 L-9 -32 M0 -36 L9 -46 M0 -48 L-6 -55";
 
-export function CircuitTree({ className = "", title = "Circuit tree" }: { className?: string; title?: string }) {
+export function CircuitTree({ className = "", title, id = "ct" }: { className?: string; title?: string; id?: string }) {
   const draw = (delay: number) => ({
     pathLength: 1,
-    strokeDasharray: 1,
-    strokeDashoffset: 1,
-    className: "animate-draw",
+    className: "draw-in",
     style: { animationDelay: `${delay}s` },
   });
 
   return (
-    <svg className={className} viewBox="0 0 640 720" fill="none" role="img" aria-label={title}>
+    <svg className={className} viewBox="0 0 640 720" fill="none" {...(title ? { role: "img", "aria-label": title } : { "aria-hidden": true })}>
       <defs>
-        <radialGradient id="ct-bloom" cx="50%" cy="50%" r="50%">
+        <radialGradient id={`${id}-bloom`} cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor={VOLT} stopOpacity="0.16" />
           <stop offset="100%" stopColor={VOLT} stopOpacity="0" />
         </radialGradient>
       </defs>
 
       {/* ambient bloom behind the chip — on geometry only */}
-      <circle cx={C.x} cy={C.y} r="180" fill="url(#ct-bloom)" />
+      <circle cx={C.x} cy={C.y} r="180" fill={`url(#${id}-bloom)`} />
 
       {/* concentric PCB rings */}
       <g stroke={LINE} strokeWidth="1" vectorEffect="non-scaling-stroke">
@@ -136,21 +134,20 @@ export function CircuitTree({ className = "", title = "Circuit tree" }: { classN
       {/* leaves */}
       {branches.map((b, i) =>
         b.leaf ? (
-          <g
-            key={`leaf${i}`}
-            transform={`translate(${b.end[0]} ${b.end[1]}) rotate(${b.leaf.angle}) scale(${b.leaf.scale ?? 1})`}
-            className="animate-rise"
-            style={{ animationDelay: `${1.5 + i * 0.15}s` }}
-          >
-            <path d={LEAF} stroke={VOLT} strokeOpacity="0.85" strokeWidth="1.1" fill={VOLT} fillOpacity="0.07" vectorEffect="non-scaling-stroke" />
-            <path d={VEINS} stroke={VOLT} strokeOpacity="0.55" strokeWidth="0.9" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+          <g key={`leaf${i}`} transform={`translate(${b.end[0]} ${b.end[1]}) rotate(${b.leaf.angle}) scale(${b.leaf.scale ?? 1})`}>
+            <g className="leaf-in" style={{ animationDelay: `${1.5 + i * 0.15}s` }}>
+              <path d={LEAF} stroke={VOLT} strokeOpacity="0.85" strokeWidth="1.1" fill={VOLT} fillOpacity="0.07" vectorEffect="non-scaling-stroke" />
+              <path d={VEINS} stroke={VOLT} strokeOpacity="0.55" strokeWidth="0.9" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+            </g>
           </g>
         ) : null,
       )}
       {/* crown leaf — the single solid accent */}
-      <g transform="translate(320 150) scale(1.25)" className="animate-rise" style={{ animationDelay: "2.1s" }}>
-        <path d={LEAF} fill={VOLT} />
-        <path d={VEINS} stroke="#002428" strokeWidth="1.1" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+      <g transform="translate(320 150) scale(1.25)">
+        <g className="leaf-in" style={{ animationDelay: "2.1s" }}>
+          <path d={LEAF} fill={VOLT} />
+          <path d={VEINS} stroke="#002428" strokeWidth="1.1" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+        </g>
       </g>
 
       {/* nodes */}

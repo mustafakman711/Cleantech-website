@@ -154,7 +154,7 @@ export function Header({ locale, nav, platformUrl, translations }: Props) {
           </a>
           <Link
             href={`/${locale}/contact`}
-            className="hidden min-h-10 items-center rounded-full bg-volt px-4 text-sm font-medium text-abyss-950 transition-colors hover:bg-volt-300 sm:inline-flex"
+            className="inline-flex min-h-10 items-center rounded-full bg-volt px-3.5 text-sm font-medium text-abyss-950 transition-colors hover:bg-volt-300 sm:px-4"
           >
             {nav.contact}
           </Link>

@@ -60,7 +60,7 @@ const tr = {
     manifesto: {
       label: "Tez",
       title: "Yatırım tezimiz",
-      text: "İklim ve kaynak sorunlarını çözen teknolojilerin, aynı zamanda ==en büyük ekonomik fırsatlardan== biri olduğuna inanıyoruz. Sürdürülebilirlik ile ==yapay zekanın== kesiştiği yerde, bu dönüşümü hızlandıran kuruculara ==erken aşamada== ortak oluyoruz.",
+      text: "İklim ve kaynak sorunlarını çözen teknolojilerin, aynı zamanda ==en büyük ekonomik fırsatlardan== biri olduğuna inanıyoruz. Sürdürülebilirlik ile yapay zekanın kesiştiği yerde, bu dönüşümü hızlandıran kuruculara ==erken aşamada== ortak oluyoruz.",
     },
     thesis: {
       eyebrow: "Yatırım tezimiz",
@@ -372,7 +372,7 @@ const en: Copy = {
     manifesto: {
       label: "Thesis",
       title: "Our thesis",
-      text: "We believe the technologies that solve climate and resource challenges are also among ==the largest economic opportunities== of our time. Where sustainability meets ==artificial intelligence==, we partner ==early== with the founders who accelerate this transition.",
+      text: "We believe the technologies that solve climate and resource challenges are also among ==the largest economic opportunities== of our time. Where sustainability meets artificial intelligence, we partner ==early== with the founders who accelerate this transition.",
     },
     thesis: {
       eyebrow: "Our thesis",

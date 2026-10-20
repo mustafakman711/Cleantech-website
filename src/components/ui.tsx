@@ -24,7 +24,7 @@ type Tone = "dark" | "light";
 /** One italic Instrument Serif word/phrase per headline. `tone="mist"` for a quieter accent. */
 export function Accent({ children, tone = "volt", className = "" }: { children: ReactNode; tone?: "volt" | "mist" | "ink"; className?: string }) {
   const color = tone === "volt" ? "text-volt" : tone === "ink" ? "text-volt-ink" : "text-mist";
-  return <span className={`type-accent ${color} ${className}`}>{children}</span>;
+  return <span className={`type-accent whitespace-nowrap ${color} ${className}`}>{children}</span>;
 }
 
 /**

@@ -61,12 +61,12 @@ export function Footer({ locale }: { locale: Locale }) {
         {/* CTA row */}
         <ChapterLabel label={f.ctaLabel} />
         <h2 className="type-h2 mt-8 max-w-[16ch] text-mist">{withAccent(f.ctaTitle, f.ctaAccent)}</h2>
-        <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:items-end">
-          <div className="min-w-0 lg:col-span-8">
+        <div className="mt-12 grid gap-10 xl:grid-cols-12 xl:items-end">
+          <div className="min-w-0 xl:col-span-8">
             <p className="type-label text-slate">{f.writeUs}</p>
             <a
               href={`mailto:${contact.email}`}
-              className="group mt-3 inline-flex max-w-full items-start gap-3 text-[clamp(1.375rem,0.6rem+3.6vw,4rem)] font-[380] leading-[1.05] tracking-[-0.035em] text-mist [font-stretch:104%] [overflow-wrap:anywhere] hover:text-volt"
+              className="group mt-3 inline-flex max-w-full items-start gap-3 text-[clamp(1.25rem,0.5rem+3.6vw,4rem)] font-[380] leading-[1.05] tracking-[-0.035em] text-mist [font-stretch:104%] [overflow-wrap:anywhere] hover:text-volt"
             >
               <span className="link-trace pb-1">{contact.email}</span>
               <ArrowUpRight
@@ -76,7 +76,7 @@ export function Footer({ locale }: { locale: Locale }) {
               />
             </a>
           </div>
-          <div className="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
+          <div className="flex flex-wrap gap-3 xl:col-span-4 xl:justify-end">
             <ButtonLink href={contact.startupFormUrl}>{c.common.applyStartup}</ButtonLink>
             <ButtonLink href={contact.investorFormUrl} variant="bracket">
               {c.common.applyInvestor}
@@ -106,7 +106,7 @@ export function Footer({ locale }: { locale: Locale }) {
               </ul>
             </nav>
           ))}
-          <div className="col-span-2 md:col-span-3 lg:col-span-2">
+          <div className="md:col-span-3 lg:col-span-2">
             <h2 className="type-label text-slate">{f.office}</h2>
             <address className="mt-4 text-[0.9375rem] not-italic leading-relaxed text-fog">{contact.address}</address>
             <a
@@ -153,7 +153,7 @@ export function Footer({ locale }: { locale: Locale }) {
           lengthAdjust="spacingAndGlyphs"
           fontSize="232"
           fill="currentColor"
-          style={{ fontFamily: "var(--font-mona)", fontWeight: 560, fontStretch: "125%", letterSpacing: "-0.02em" }}
+          style={{ fontFamily: "var(--font-mona)", fontWeight: 680, fontStretch: "125%" }}
         >
           CLEANTECH
         </text>

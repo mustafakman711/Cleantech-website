@@ -2,9 +2,7 @@
 export function BrokenTrace({ className = "" }: { className?: string }) {
   const draw = (delay: number) => ({
     pathLength: 1,
-    strokeDasharray: 1,
-    strokeDashoffset: 1,
-    className: "animate-draw",
+    className: "draw-in",
     style: { animationDelay: `${delay}s` },
   });
   return (
@@ -29,9 +27,6 @@ export function BrokenTrace({ className = "" }: { className?: string }) {
       <g stroke="#2CFF98" strokeWidth="1.25" strokeLinecap="round" className="animate-pulse-node">
         <path d="M624 112 L640 124 M628 150 L644 138 M650 106 L652 122 M652 140 L656 156" />
       </g>
-      <text x="650" y="236" fill="rgb(169 199 194 / 0.6)" fontFamily="var(--font-mono)" fontSize="13" letterSpacing="1.5" textAnchor="middle">
-        OPEN · Ω ∞
-      </text>
     </svg>
   );
 }
