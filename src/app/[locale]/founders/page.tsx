@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import { CheckList, CtaBand, SectorClusters, ValueCreationList } from "@/components/sections";
+import { ApplyBand } from "@/components/contact/ApplyBand";
+import { CircuitPath } from "@/components/founders/CircuitPath";
+import { CriteriaRows, FocusCompact, TermSheet } from "@/components/founders/FoundersBlocks";
+import { ValueCreationList } from "@/components/sections";
 import { ButtonLink, PageHero, SectionHeader } from "@/components/ui";
 import { copy } from "@/content/copy";
 import { contact, criteria } from "@/content/fund";
@@ -19,75 +22,99 @@ export default async function FoundersPage({ params }: Props) {
   const c = copy[locale];
   const f = c.founders;
   const t = c.home.thesis;
+  const s = c.home.sectors;
 
   return (
     <>
-      <PageHero eyebrow={c.nav.founders} title={f.title} lead={f.lead}>
-        <div className="mt-10">
+      <PageHero eyebrow={c.nav.founders} title={f.title} accent={f.accent} lead={f.lead}>
+        <div className="mt-10 flex flex-wrap gap-3">
           <ButtonLink href={contact.startupFormUrl}>{c.common.applyStartup}</ButtonLink>
+          <ButtonLink href="#process" variant="bracket" icon="none">
+            {f.process.title}
+            <span aria-hidden className="ml-2 text-volt">↓</span>
+          </ButtonLink>
         </div>
+        <TermSheet
+          label={f.termSheet}
+          items={[
+            { label: t.stageLabel, value: t.stage },
+            { label: t.ticketLabel, value: t.ticket },
+            { label: t.focusLabel, value: t.focus },
+          ]}
+        />
       </PageHero>
 
-      <section className="py-24 sm:py-32">
+      {/* 01 — Criteria */}
+      <section aria-labelledby="criteria-title" className="section-y relative bg-abyss-900">
         <div className="container-site">
-          <SectionHeader eyebrow={f.look.eyebrow} title={f.look.title} lead={f.look.lead} />
-          <dl className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-neon/30 bg-neon/20 md:grid-cols-3">
-            {[
-              [t.stageLabel, t.stage],
-              [t.ticketLabel, t.ticket],
-              [t.focusLabel, t.focus],
-            ].map(([label, value]) => (
-              <div key={label} className="bg-petrol-900 p-7">
-                <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-neon">{label}</dt>
-                <dd className="mt-3 font-display text-lg font-medium leading-snug">{value}</dd>
-              </div>
-            ))}
-          </dl>
-          <div className="mt-5">
-            <CheckList items={criteria} locale={locale} columns={3} />
+          <SectionHeader id="criteria-title" index="01" label={f.look.label} title={f.look.title} accent={f.look.accent} lead={f.look.lead} />
+          <div className="mt-16 lg:mt-24 lg:ml-[calc((100%+1.5rem)*3/12)]">
+            <CriteriaRows items={criteria} locale={locale} />
           </div>
         </div>
       </section>
 
-      <section className="bg-petrol-800 py-24 sm:py-32">
+      {/* 02 — Focus areas (compact, petrol brand band) */}
+      <section aria-labelledby="focus-title" className="section-y relative overflow-hidden bg-petrol-800">
+        <div aria-hidden className="dot-grid absolute inset-0 opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_45%)]" />
+        <div className="container-site relative">
+          <SectionHeader id="focus-title" index="02" label={f.focus.label} title={s.title} accent={s.accent} lead={s.lead} />
+          <div className="mt-16 lg:mt-24">
+            <FocusCompact locale={locale} areasLabel={s.areas} />
+          </div>
+        </div>
+      </section>
+
+      {/* 03 — Process: circuit path (signature) */}
+      <section id="process" aria-labelledby="process-title" className="section-y relative scroll-mt-16 bg-abyss-900">
         <div className="container-site">
-          <SectionHeader eyebrow={c.home.sectors.eyebrow} title={c.home.sectors.title} lead={c.home.sectors.lead} />
-          <div className="mt-14">
-            <SectorClusters locale={locale} />
+          <SectionHeader id="process-title" index="03" label={f.process.eyebrow} title={f.process.title} accent={f.process.accent} lead={f.process.lead} />
+          <div className="mt-16 lg:mt-28">
+            <CircuitPath
+              steps={f.process.steps}
+              stepLabel={f.process.step}
+              terminal={
+                <a href="#value" className="type-label inline-flex min-h-10 items-center gap-2 text-fog transition-colors hover:text-volt lg:hidden lg:pr-6 xl:inline-flex">
+                  {f.support.eyebrow} <span aria-hidden>→</span>
+                </a>
+              }
+            />
           </div>
         </div>
       </section>
 
-      <section className="py-24 sm:py-32">
-        <div className="container-site">
-          <SectionHeader eyebrow={f.process.eyebrow} title={f.process.title} />
-          <ol className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {f.process.steps.map((step, i) => (
-              <li key={step.title} className="relative rounded-3xl border border-white/10 bg-petrol-850/60 p-7">
-                <span className="font-display text-5xl font-bold text-neon/25">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="mt-4 font-display text-xl font-semibold">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-mist/80">{step.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="bg-petrol-850 py-24 sm:py-32">
-        <div className="container-site grid gap-12 lg:grid-cols-2 lg:gap-20">
-          <div>
-            <SectionHeader eyebrow={f.support.eyebrow} title={f.support.title} lead={c.home.value.lead} />
-            <ButtonLink href={contact.startupFormUrl} className="mt-10">
-              {c.common.applyStartup}
-            </ButtonLink>
+      {/* 04 — Value creation (light band) */}
+      <section id="value" aria-labelledby="value-title" className="band-bone section-y relative scroll-mt-16">
+        <div className="container-site grid gap-14 lg:grid-cols-12 lg:gap-x-6">
+          <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-[calc(var(--header-h)+2.5rem)]">
+              <SectionHeader
+                id="value-title"
+                layout="stacked"
+                tone="light"
+                index="04"
+                label={f.support.label}
+                title={f.support.title}
+                accent={f.support.accent}
+                lead={c.home.value.lead}
+              >
+                <ButtonLink href={contact.startupFormUrl}>{c.common.applyStartup}</ButtonLink>
+              </SectionHeader>
+            </div>
           </div>
-          <div className="self-center">
-            <ValueCreationList locale={locale} />
+          <div className="lg:col-span-6 lg:col-start-7">
+            <p className="type-label text-bone-ink">{f.support.list}</p>
+            <ValueCreationList locale={locale} tone="light" className="mt-6 border-b border-line-ink" />
           </div>
         </div>
       </section>
 
-      <CtaBand locale={locale} />
+      <ApplyBand id="apply-title" index="05" label={f.apply.label} title={f.apply.title} text={f.apply.text}>
+        <ButtonLink href={contact.startupFormUrl}>{c.common.applyStartup}</ButtonLink>
+        <ButtonLink href={`/${locale}/contact`} variant="bracket">
+          {c.common.contactUs}
+        </ButtonLink>
+      </ApplyBand>
     </>
   );
 }

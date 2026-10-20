@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, Rocket, TrendingUp } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { SocialLinks } from "@/components/Footer";
-import { ButtonLink, PageHero } from "@/components/ui";
+import { LocalTime } from "@/components/LocalTime";
+import { ButtonLink, ChapterLabel, CornerTicks, PageHero, rich } from "@/components/ui";
 import { copy } from "@/content/copy";
 import { contact } from "@/content/fund";
 import type { Locale } from "@/lib/i18n";
@@ -21,69 +22,115 @@ export default async function ContactPage({ params }: Props) {
   const p = c.contactPage;
 
   const applications = [
-    { Icon: Rocket, title: p.startupTitle, text: p.startupText, href: contact.startupFormUrl, label: c.common.applyStartup },
-    { Icon: TrendingUp, title: p.investorTitle, text: p.investorText, href: contact.investorFormUrl, label: c.common.applyInvestor },
+    { title: p.startupTitle, text: p.startupText, href: contact.startupFormUrl, label: c.common.applyStartup, primary: true },
+    { title: p.investorTitle, text: p.investorText, href: contact.investorFormUrl, label: c.common.applyInvestor, primary: false },
   ];
 
   return (
     <>
-      <PageHero eyebrow={c.meta.siteName} title={p.title} lead={p.lead} />
-      <section className="py-20 sm:py-24">
-        <div className="container-site grid gap-5 lg:grid-cols-[1fr_1.2fr]">
-          <div className="rounded-3xl border border-white/10 bg-petrol-850/60 p-8 sm:p-10">
-            <dl className="space-y-8">
-              <div className="flex gap-5">
-                <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-neon/15 text-neon">
-                  <Mail aria-hidden className="size-5" />
-                </span>
-                <div>
-                  <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-neon">{p.email}</dt>
-                  <dd className="mt-2 space-y-1 text-lg">
-                    <a href={`mailto:${contact.email}`} className="block hover:text-neon">
-                      {contact.email}
-                    </a>
-                    <a href={`mailto:${contact.secondaryEmail}`} className="block text-base text-mist/80 hover:text-neon">
-                      {contact.secondaryEmail}
-                    </a>
-                  </dd>
-                </div>
+      <PageHero eyebrow={p.title} title={p.heading} lead={p.lead} />
+
+      {/* 01 — Write to us: oversized email + channels */}
+      <section aria-labelledby="write-title" className="section-y relative bg-abyss-900">
+        <div className="container-site grid grid-cols-1 gap-y-10 lg:grid-cols-12 lg:gap-x-6">
+          <div className="min-w-0 lg:col-span-3 lg:pt-4">
+            <ChapterLabel index="01" label={p.writeUs} />
+            <h2 id="write-title" className="sr-only">
+              {p.email}
+            </h2>
+          </div>
+          <div className="@container min-w-0 lg:col-span-9">
+            <p className="type-label text-slate">{p.general}</p>
+            <a
+              href={`mailto:${contact.email}`}
+              className="group mt-4 block max-w-full text-[clamp(1.875rem,6.8cqi,6.5rem)] font-[380] leading-[1.02] tracking-[-0.04em] text-mist transition-colors duration-300 [font-stretch:104%] [overflow-wrap:anywhere] hover:text-volt"
+            >
+              <span className="underline decoration-volt/70 decoration-1 underline-offset-[0.14em] transition-[text-decoration-color] group-hover:decoration-volt">
+                {contact.email.split("@")[0]}@<wbr />
+                {contact.email.split("@")[1]}
+              </span>
+              <ArrowUpRight
+                aria-hidden
+                className="ml-[0.1em] inline-block size-[0.5em] -translate-y-[0.55em] text-volt transition-transform duration-500 group-hover:-translate-y-[0.7em] group-hover:translate-x-1"
+                strokeWidth={1.25}
+              />
+            </a>
+
+            <dl className="mt-16 grid grid-cols-1 border-t border-line md:grid-cols-2 xl:grid-cols-4">
+              <div className="min-w-0 border-b border-line py-7 md:border-r md:pr-8 xl:border-b-0">
+                <dt className="type-label text-slate">{p.manager}</dt>
+                <dd className="mt-4">
+                  <a
+                    href={`mailto:${contact.secondaryEmail}`}
+                    className="link-trace inline-flex min-h-11 items-center text-lg text-mist [overflow-wrap:anywhere] hover:text-volt"
+                  >
+                    {contact.secondaryEmail}
+                  </a>
+                </dd>
               </div>
-              <div className="flex gap-5">
-                <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-neon/15 text-neon">
-                  <MapPin aria-hidden className="size-5" />
-                </span>
-                <div>
-                  <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-neon">{p.address}</dt>
-                  <dd className="mt-2">
-                    <address className="text-lg not-italic leading-relaxed">{contact.address}</address>
-                    <a
-                      href={contact.mapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-2 inline-block text-sm font-semibold text-neon hover:text-neon-300"
-                    >
-                      {p.showOnMap} ↗
-                    </a>
-                  </dd>
-                </div>
+              <div className="min-w-0 border-b border-line py-7 md:pl-8 xl:border-b-0 xl:border-r xl:pr-8">
+                <dt className="type-label text-slate">{p.address}</dt>
+                <dd className="mt-4">
+                  <address className="not-italic leading-relaxed text-mist">{contact.address}</address>
+                  <a
+                    href={contact.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="type-label mt-3 inline-flex min-h-10 items-center gap-1.5 text-fog transition-colors hover:text-volt"
+                  >
+                    {p.showOnMap}
+                    <ArrowUpRight aria-hidden className="size-3.5 text-volt" />
+                  </a>
+                </dd>
+              </div>
+              <div className="min-w-0 border-b border-line py-7 md:border-b-0 md:border-r md:pr-8 xl:pl-8">
+                <dt className="type-label text-slate">{c.footer.localTime}</dt>
+                <dd className="mt-4 flex items-baseline gap-3">
+                  <LocalTime locale={locale === "tr" ? "tr-TR" : "en-GB"} className="text-[2.5rem] font-[300] leading-none tracking-[-0.04em] text-mist [font-stretch:120%]" />
+                  <span className="type-label text-slate">GMT+3</span>
+                </dd>
+              </div>
+              <div className="min-w-0 py-7 md:pl-8">
+                <dt className="type-label text-slate">{p.follow}</dt>
+                <dd className="mt-4">
+                  <SocialLinks />
+                </dd>
               </div>
             </dl>
-            <div className="mt-10 border-t border-white/10 pt-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">{p.follow}</p>
-              <SocialLinks className="mt-4" />
-            </div>
           </div>
-          <div className="grid gap-5">
-            {applications.map(({ Icon, title, text, href, label }) => (
-              <article key={title} className="flex flex-col rounded-3xl border border-white/10 bg-gradient-to-br from-petrol-700/60 to-petrol-850/60 p-8 sm:p-10">
-                <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-neon text-petrol-950">
-                  <Icon aria-hidden className="size-6" />
-                </span>
-                <h2 className="mt-6 font-display text-2xl font-semibold">{title}</h2>
-                <p className="mt-2 text-mist/85">{text}</p>
-                <ButtonLink href={href} className="mt-8 self-start">
-                  {label}
-                </ButtonLink>
+        </div>
+      </section>
+
+      {/* 02 — Applications: two PCB panels */}
+      <section aria-labelledby="apply-title" className="section-y relative overflow-hidden border-t border-line bg-abyss-950">
+        <div className="container-site">
+          <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-12 lg:gap-x-6">
+            <div className="lg:col-span-3 lg:pt-4">
+              <ChapterLabel index="02" label={p.applyLabel} />
+            </div>
+            <h2 id="apply-title" className="type-h2 max-w-[18ch] text-mist lg:col-span-9">
+              {rich(p.applyTitle)}
+            </h2>
+          </div>
+          <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:mt-20 lg:ml-[calc((100%+1.5rem)*3/12)]">
+            {applications.map((a, i) => (
+              <article
+                key={a.title}
+                className={`relative flex min-w-0 flex-col border p-7 sm:p-10 ${a.primary ? "border-line-volt bg-petrol-800/50" : "border-line-strong bg-abyss-900/60"}`}
+              >
+                <CornerTicks />
+                {a.primary && <div aria-hidden className="dot-grid pointer-events-none absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom_left,black,transparent_60%)]" />}
+                <div className="relative flex items-baseline justify-between gap-4">
+                  <span className="type-label text-fog">[ {String(i + 1).padStart(2, "0")} ]</span>
+                  <span aria-hidden className={`size-2 rounded-full ${a.primary ? "bg-volt shadow-[0_0_10px_rgb(44_255_152/0.9)]" : "border border-line-strong"}`} />
+                </div>
+                <h3 className="type-h3 relative mt-12 text-mist">{a.title}</h3>
+                <p className="relative mt-3 max-w-[40ch] text-fog">{a.text}</p>
+                <div className="relative mt-auto pt-10">
+                  <ButtonLink href={a.href} variant={a.primary ? "primary" : "bracket"}>
+                    {a.label}
+                  </ButtonLink>
+                </div>
               </article>
             ))}
           </div>

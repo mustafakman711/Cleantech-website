@@ -11,7 +11,7 @@ const host = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\
 /**
  * Typographic portfolio index (Extantia-style). Each row is a native <details>: summary shows pictogram,
  * big name, sector, HQ; the panel reveals description, three metrics, website, founders and the logo.
- * Reused by the portfolio page (pass `open` slugs to expand rows by default).
+ * Reused by the portfolio page (`openSlugs` expands rows by default; every row stays expandable).
  */
 export function PortfolioIndex({ companies, locale, openSlugs = [] }: { companies: Company[]; locale: Locale; openSlugs?: string[] }) {
   const c = copy[locale];
@@ -91,8 +91,9 @@ export function PortfolioIndex({ companies, locale, openSlugs = [] }: { companie
                     </ul>
                   </div>
                 </div>
-                <dl className="grid content-start gap-px self-start border-t border-line lg:col-span-3">
+                <div className="grid content-start self-start border-t border-line lg:col-span-3">
                   <p className="type-label pt-4 text-slate">{c.home.portfolio.highlights}</p>
+                  <dl className="grid">
                   {co.highlights.map((h) => (
                     <div key={h.label.en} className="grid grid-cols-[minmax(0,9rem)_1fr] items-baseline gap-4 border-b border-line py-4">
                       <dt className="sr-only">{tx(h.label, locale)}</dt>
@@ -100,7 +101,8 @@ export function PortfolioIndex({ companies, locale, openSlugs = [] }: { companie
                       <dd className="text-sm leading-snug text-fog">{tx(h.label, locale)}</dd>
                     </div>
                   ))}
-                </dl>
+                  </dl>
+                </div>
               </div>
             </details>
           </li>

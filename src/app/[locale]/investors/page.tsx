@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
-import { ArrowUpRight, BadgePercent, CandlestickChart, FlaskConical, LayoutDashboard } from "lucide-react";
+import { BadgePercent, CandlestickChart, FlaskConical, LayoutDashboard } from "lucide-react";
+import { ApplyBand } from "@/components/contact/ApplyBand";
+import { DataTerminal } from "@/components/investors/DataTerminal";
+import { TaxTable } from "@/components/investors/TaxTables";
 import { Faq } from "@/components/sections";
-import { ButtonLink, PageHero, SectionHeader } from "@/components/ui";
+import { ButtonLink, ChapterLabel, PageHero, rich, SectionHeader } from "@/components/ui";
 import { copy } from "@/content/copy";
-import { contact, taxFootnote, taxTable, type TaxRow } from "@/content/fund";
+import { contact, taxFootnote, taxTable } from "@/content/fund";
 import { tx, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 
@@ -16,141 +19,117 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const cardIcons = [CandlestickChart, BadgePercent, FlaskConical, LayoutDashboard];
-
-function TaxTable({ title, rows, locale }: { title: string; rows: TaxRow[]; locale: Locale }) {
-  const t = copy[locale].investors.tax;
-  return (
-    <div className="overflow-hidden rounded-3xl border border-white/10 bg-petrol-850/60">
-      <h3 className="border-b border-white/10 bg-neon px-6 py-4 font-display text-lg font-semibold text-petrol-950">{title}</h3>
-      <dl className="divide-y divide-white/10 sm:hidden">
-        {rows.map((row) => (
-          <div key={row.label.en} className="space-y-2 px-5 py-4 text-sm">
-            <dt className="font-semibold text-white">{tx(row.label, locale)}</dt>
-            <dd className="text-mist/85">
-              <span className="block text-xs uppercase tracking-wider text-white/50">{t.residents}</span>
-              {tx(row.residents, locale)}
-            </dd>
-            <dd className="text-mist/85">
-              <span className="block text-xs uppercase tracking-wider text-white/50">{t.nonResidents}</span>
-              {tx(row.nonResidents, locale)}
-            </dd>
-          </div>
-        ))}
-      </dl>
-      <div className="hidden overflow-x-auto sm:block">
-        <table className="w-full min-w-[34rem] text-left text-sm">
-          <thead>
-            <tr className="border-b border-white/10 text-xs uppercase tracking-wider text-white/60">
-              <th scope="col" className="px-6 py-4 font-semibold">
-                {t.income}
-              </th>
-              <th scope="col" className="px-6 py-4 font-semibold">
-                {t.residents}
-              </th>
-              <th scope="col" className="px-6 py-4 font-semibold">
-                {t.nonResidents}
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-white/10">
-            {rows.map((row) => (
-              <tr key={row.label.en} className="align-top">
-                <th scope="row" className="px-6 py-4 font-semibold text-white">
-                  {tx(row.label, locale)}
-                </th>
-                <td className="px-6 py-4 leading-relaxed text-mist/85">{tx(row.residents, locale)}</td>
-                <td className="px-6 py-4 leading-relaxed text-mist/85">{tx(row.nonResidents, locale)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
+const pad = (n: number) => String(n).padStart(2, "0");
 
 export default async function InvestorsPage({ params }: Props) {
   const locale = (await params).locale as Locale;
   const c = copy[locale];
   const inv = c.investors;
+  const term = inv.terminal;
 
   return (
     <>
-      <PageHero eyebrow={c.home.investors.title} title={inv.title} lead={inv.lead}>
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+      <PageHero eyebrow={inv.title} title={inv.heading} lead={inv.lead}>
+        <div className="mt-10 flex flex-wrap gap-3">
           <ButtonLink href={contact.investorFormUrl}>{c.common.applyInvestor}</ButtonLink>
-          <ButtonLink href={contact.platformUrl} variant="outline">
+          <ButtonLink href={contact.platformUrl} variant="bracket">
             {c.nav.platform}
           </ButtonLink>
         </div>
       </PageHero>
 
-      <section className="py-24 sm:py-32">
+      {/* 01 — Fund data terminal */}
+      <section aria-labelledby="data-title" className="section-y relative overflow-hidden bg-abyss-950">
+        <div aria-hidden className="dot-grid absolute inset-0 opacity-50 [mask-image:radial-gradient(60%_70%_at_75%_50%,black,transparent)]" />
+        <div className="container-site relative grid gap-12 lg:grid-cols-12 lg:gap-x-6">
+          <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-[calc(var(--header-h)+2.5rem)]">
+              <ChapterLabel index="01" label={term.label} />
+              <h2 id="data-title" className="type-h2 mt-8 text-mist">
+                {rich(term.title)}
+              </h2>
+              <p className="type-lead mt-6 max-w-[34ch] text-fog">{term.lead}</p>
+            </div>
+          </div>
+          <div className="min-w-0 lg:col-span-8">
+            <DataTerminal
+              title={term.panel}
+              status={term.status}
+              figures={c.home.investors.points}
+              rows={term.rows}
+              noPrice={term.noPrice}
+              sourcesLabel={term.sources}
+              bistLabel={term.bist}
+              kapLabel={term.kap}
+              kapFull={term.kapFull}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* 02 — Why invest: 2x2 hairline grid */}
+      <section aria-labelledby="why-title" className="section-y relative bg-abyss-900">
         <div className="container-site">
-          <SectionHeader eyebrow={inv.why.eyebrow} title={inv.why.title} />
-          <div className="mt-14 grid gap-5 md:grid-cols-2">
+          <SectionHeader id="why-title" index="02" label={inv.why.label} title={inv.why.title} accent={inv.why.accent} />
+          <div className="mt-16 grid border-t border-line md:grid-cols-2 lg:mt-24 lg:ml-[calc((100%+1.5rem)*3/12)]">
             {inv.why.cards.map((card, i) => {
               const Icon = cardIcons[i];
               return (
-                <article key={card.title} className="rounded-3xl border border-white/10 bg-petrol-850/60 p-8">
-                  <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-neon/15 text-neon">
-                    <Icon aria-hidden className="size-6" />
-                  </span>
-                  <h3 className="mt-6 font-display text-xl font-semibold">{card.title}</h3>
-                  <p className="mt-3 leading-relaxed text-mist/80">{card.text}</p>
+                <article
+                  key={card.title}
+                  data-reveal
+                  className={`group border-b border-line py-10 md:py-12 ${i % 2 === 0 ? "md:border-r md:pr-10" : "md:pl-10"}`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="type-label text-fog">[ {pad(i + 1)} ]</span>
+                    <Icon aria-hidden className="size-6 text-volt transition-transform duration-500 group-hover:-translate-y-0.5" strokeWidth={1.25} />
+                  </div>
+                  <h3 className="type-h3 mt-10 text-mist">{card.title}</h3>
+                  <p className="mt-4 max-w-[46ch] leading-relaxed text-fog">{card.text}</p>
                 </article>
               );
             })}
           </div>
-          <dl className="mt-5 grid gap-px overflow-hidden rounded-3xl border border-neon/30 bg-neon/20 sm:grid-cols-3">
-            {c.home.investors.points.map((p) => (
-              <div key={p.label} className="bg-petrol-900 p-7">
-                <dt className="sr-only">{p.label}</dt>
-                <dd className="font-display text-4xl font-bold text-neon">{p.value}</dd>
-                <dd className="mt-2 text-sm leading-snug text-mist/85">{p.label}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </section>
 
-      <section id="tax" className="scroll-mt-24 bg-petrol-850 py-24 sm:py-32">
-        <div className="container-site">
-          <SectionHeader eyebrow={inv.tax.eyebrow} title={inv.tax.title} />
-          <div className="mt-14 grid gap-5 xl:grid-cols-2">
-            <TaxTable title={inv.tax.individual} rows={taxTable.individual} locale={locale} />
-            <TaxTable title={inv.tax.corporate} rows={taxTable.corporate} locale={locale} />
+      {/* 03 — Tax tables (petrol brand band) */}
+      <section id="tax" aria-labelledby="tax-title" className="section-y relative scroll-mt-16 overflow-hidden bg-petrol-800">
+        <div aria-hidden className="dot-grid absolute inset-0 opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_40%)]" />
+        <div className="container-site relative">
+          <SectionHeader id="tax-title" index="03" label={inv.tax.label} title={inv.tax.title} accent={inv.tax.accent} lead={inv.tax.lead} />
+          <div className="mt-16 grid gap-16 lg:mt-24 lg:ml-[calc((100%+1.5rem)*3/12)] lg:gap-20">
+            <TaxTable code="A" title={inv.tax.individual} rows={taxTable.individual} locale={locale} labels={inv.tax} />
+            <TaxTable code="B" title={inv.tax.corporate} rows={taxTable.corporate} locale={locale} labels={inv.tax} />
+            <p className="max-w-[90ch] border-l border-line-strong pl-5 text-[0.8125rem] leading-relaxed text-fog">{tx(taxFootnote, locale)}</p>
           </div>
-          <p className="mt-8 max-w-4xl text-xs leading-relaxed text-white/55">{tx(taxFootnote, locale)}</p>
         </div>
       </section>
 
-      <section className="py-24 sm:py-32">
-        <div className="container-site grid gap-12 lg:grid-cols-[1fr_1.5fr] lg:gap-20">
-          <SectionHeader eyebrow={inv.faq.eyebrow} title={inv.faq.title} />
-          <Faq locale={locale} />
-        </div>
-      </section>
-
-      <section className="pb-24 sm:pb-32">
-        <div className="container-site">
-          <div className="flex flex-col items-start justify-between gap-8 rounded-[2rem] bg-neon p-8 text-petrol-950 sm:p-12 lg:flex-row lg:items-center">
-            <div>
-              <h2 className="font-display text-3xl font-semibold">{inv.apply.title}</h2>
-              <p className="mt-2 text-lg">{inv.apply.text}</p>
+      {/* 04 — FAQ (sticky left) */}
+      <section aria-labelledby="faq-title" className="section-y relative bg-abyss-900">
+        <div className="container-site grid gap-12 lg:grid-cols-12 lg:gap-x-6">
+          <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-[calc(var(--header-h)+2.5rem)]">
+              <SectionHeader id="faq-title" layout="stacked" index="04" label={inv.faq.eyebrow} title={inv.faq.title} accent={inv.faq.accent} lead={c.home.faq.lead}>
+                <ButtonLink href={`/${locale}/contact`} variant="bracket">
+                  {c.common.contactUs}
+                </ButtonLink>
+              </SectionHeader>
             </div>
-            <a
-              href={contact.investorFormUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-petrol-950 px-6 py-3.5 text-sm font-semibold text-white hover:bg-petrol-800"
-            >
-              {c.common.applyInvestor}
-              <ArrowUpRight aria-hidden className="size-4" />
-            </a>
+          </div>
+          <div className="lg:col-span-7 lg:col-start-6">
+            <Faq locale={locale} />
           </div>
         </div>
       </section>
+
+      <ApplyBand id="apply-title" tone="bone" index="05" label={inv.apply.label} title={inv.apply.title.replace(inv.apply.accent, `*${inv.apply.accent}*`)} text={inv.apply.text}>
+        <ButtonLink href={contact.investorFormUrl}>{c.common.applyInvestor}</ButtonLink>
+        <ButtonLink href={contact.platformUrl} variant="bracket">
+          {c.nav.platform}
+        </ButtonLink>
+      </ApplyBand>
     </>
   );
 }

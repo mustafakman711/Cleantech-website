@@ -60,8 +60,8 @@ export function CheckList({ items, locale, columns = 2 }: { items: { tr: string;
   return <HairlineList columns={columns} items={items.map((item) => ({ key: item.en, title: tx(item, locale) }))} />;
 }
 
-export function ValueCreationList({ locale }: { locale: Locale }) {
-  return <HairlineList items={valueCreation.map((v) => ({ key: v.en, title: tx(v, locale) }))} />;
+export function ValueCreationList({ locale, tone = "dark", className = "" }: { locale: Locale; tone?: "dark" | "light"; className?: string }) {
+  return <HairlineList tone={tone} className={className} items={valueCreation.map((v) => ({ key: v.en, title: tx(v, locale) }))} />;
 }
 
 /**
@@ -128,34 +128,52 @@ export function PortfolioCard({ company, locale, detailed = false }: { company: 
   );
 }
 
-/** Fund partners as a hairline 3-col row: mono role, logo at a fixed optical height, description. */
+/** Optical logo sizing: every partner logo gets the same visual AREA (not the same height), QA #16. */
+const LOGO_AREA = 4600;
+
+/**
+ * Fund partners as a hairline ledger: stacked < md, one row per partner (role | logo | text) from md, three
+ * columns from xl. A volt node marks each partner on the top "bus" line. Logos are cropped SVGs sized by area.
+ */
 export function PartnerGrid({ locale, tone = "dark" }: { locale: Locale; tone?: "dark" | "light" }) {
   const light = tone === "light";
+  const line = light ? "border-line-ink" : "border-line";
   return (
-    <div className={`grid border-t md:grid-cols-3 ${light ? "border-line-ink" : "border-line"}`}>
-      {partners.map((p, i) => (
-        <article
-          key={p.name}
-          className={`flex flex-col border-b py-8 md:border-b-0 md:px-8 md:first:pl-0 md:last:pr-0 ${light ? "border-line-ink" : "border-line"} ${
-            i < partners.length - 1 ? (light ? "md:border-r md:border-line-ink" : "md:border-r md:border-line") : ""
-          }`}
-        >
-          <p className={`type-label ${light ? "text-bone-ink" : "text-slate"}`}>
-            {pad(i + 1)} — {tx(p.role, locale)}
-          </p>
-          <div className="mt-8 flex h-12 items-center">
-            <Image
-              src={p.logo}
-              alt={p.name}
-              width={p.logoWidth}
-              height={p.logoHeight}
-              className={`w-auto max-w-[12rem] object-contain object-left ${p.logoHeight / p.logoWidth < 0.2 ? "h-6" : "h-10"} ${light ? "invert" : ""}`}
+    <ol className={`grid border-t xl:grid-cols-3 ${line}`}>
+      {partners.map((p, i) => {
+        const aspect = p.logoWidth / p.logoHeight;
+        const h = Math.round(Math.sqrt(LOGO_AREA / aspect));
+        return (
+          <li
+            key={p.name}
+            className={`relative grid gap-y-6 border-b py-8 md:grid-cols-12 md:items-center md:gap-x-6 md:py-10 xl:flex xl:flex-col xl:items-stretch xl:gap-y-0 xl:border-b-0 xl:px-8 xl:py-10 xl:first:pl-0 xl:last:pr-0 ${line} ${
+              i > 0 ? (light ? "xl:border-l xl:border-line-ink" : "xl:border-l xl:border-line") : ""
+            }`}
+          >
+            <span
+              aria-hidden
+              className={`absolute -top-[3.5px] size-1.5 rounded-full ${i > 0 ? "left-0 xl:-left-[3.5px]" : "left-0"} ${
+                light ? "bg-volt-ink" : "bg-volt shadow-[0_0_8px_rgb(44_255_152/0.8)]"
+              }`}
             />
-          </div>
-          <p className={`mt-8 text-[0.9375rem] leading-relaxed ${light ? "text-bone-ink" : "text-fog"}`}>{tx(p.description, locale)}</p>
-        </article>
-      ))}
-    </div>
+            <p className={`type-label md:col-span-3 ${light ? "text-bone-ink" : "text-slate"}`}>
+              <span className={light ? "text-abyss-900" : "text-fog"}>{pad(i + 1)}</span> — {tx(p.role, locale)}
+            </p>
+            <div className="flex h-12 items-center md:col-span-3 xl:mt-10">
+              <Image
+                src={p.logo}
+                alt={p.name}
+                width={p.logoWidth}
+                height={p.logoHeight}
+                style={{ height: h, width: Math.round(h * aspect) }}
+                className={`max-w-full object-contain object-left ${light ? "invert" : ""}`}
+              />
+            </div>
+            <p className={`text-[0.9375rem] leading-relaxed md:col-span-6 xl:mt-10 ${light ? "text-bone-ink" : "text-fog"}`}>{tx(p.description, locale)}</p>
+          </li>
+        );
+      })}
+    </ol>
   );
 }
 
