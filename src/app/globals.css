@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@theme {
+  --color-petrol-950: #001a1d;
+  --color-petrol-900: #002428;
+  --color-petrol-850: #013035;
+  --color-petrol-800: #004c54;
+  --color-petrol-700: #0e5858;
+  --color-petrol-600: #146b6b;
+  --color-petrol-500: #1d8580;
+  --color-neon: #2cff98;
+  --color-neon-300: #8affc6;
+  --color-neon-600: #19d97c;
+  --color-mist: #c9e4e1;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), var(--font-inter), ui-sans-serif, sans-serif;
+
+  --animate-draw: draw 2.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  --animate-pulse-node: pulse-node 3.2s ease-in-out infinite;
+  --animate-rise: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes pulse-node {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-petrol-900 font-sans text-white antialiased;
+  }
+  ::selection {
+    @apply bg-neon text-petrol-950;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-neon;
+  }
+}
+
+@utility container-site {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility grid-lines {
+  background-image:
+    linear-gradient(to right, rgb(44 255 152 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(44 255 152 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Long-form article body rendered from Markdown */
+.prose-ct {
+  @apply text-[1.0625rem] leading-8 text-mist;
+}
+.prose-ct > * + * {
+  @apply mt-5;
+}
+.prose-ct h2,
+.prose-ct h3,
+.prose-ct h4 {
+  @apply mt-10 font-display font-semibold text-white;
+}
+.prose-ct h2 {
+  @apply text-2xl;
+}
+.prose-ct h3,
+.prose-ct h4 {
+  @apply text-xl;
+}
+.prose-ct strong {
+  @apply font-semibold text-white;
+}
+.prose-ct a {
+  @apply text-neon underline decoration-neon/40 underline-offset-4 hover:decoration-neon;
+}
+.prose-ct ul,
+.prose-ct ol {
+  @apply space-y-2 pl-6;
+}
+.prose-ct ul {
+  @apply list-disc marker:text-neon;
+}
+.prose-ct ol {
+  @apply list-decimal marker:text-neon;
+}
+.prose-ct blockquote {
+  @apply border-l-2 border-neon pl-5 italic text-white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

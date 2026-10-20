@@ -1,0 +1,523 @@
+import type { Locale } from "@/lib/i18n";
+
+const tr = {
+  meta: {
+    siteName: "Cleantech Ventures",
+    description:
+      "Sürdürülebilirlik odaklı, yapay zeka destekli teknoloji girişimlerine yatırım yapan girişim sermayesi yatırım fonu. Borsa İstanbul: NPCLN.",
+  },
+  nav: {
+    about: "Hakkımızda",
+    founders: "Girişimciler",
+    investors: "Yatırımcılar",
+    portfolio: "Portföy",
+    team: "Ekip",
+    news: "Haberler",
+    insights: "İçgörüler",
+    contact: "İletişim",
+    platform: "Cleantech Platform",
+    menu: "Menü",
+    close: "Kapat",
+    switchLanguage: "Switch to English",
+    skip: "İçeriğe geç",
+  },
+  common: {
+    applyStartup: "Girişimini Paylaş",
+    applyInvestor: "Yatırımcı Başvurusu",
+    contactUs: "Bize Ulaşın",
+    learnMore: "Detaylı bilgi",
+    readMore: "Devamını oku",
+    allNews: "Tüm haberler",
+    allInsights: "Tüm içgörüler",
+    viewPortfolio: "Portföyü incele",
+    website: "Web sitesi",
+    founders: "Kurucular",
+    sector: "Sektör",
+    headquarters: "Merkez",
+    backTo: "Geri dön",
+    readInOther: "Read in English",
+    relatedPosts: "Diğer yazılar",
+    target: "Hedef",
+  },
+  home: {
+    hero: {
+      eyebrow: "Girişim Sermayesi Yatırım Fonu · Borsa İstanbul: NPCLN",
+      title: "İleri teknoloji yatırımlarıyla sürdürülebilir bir gelecek",
+      lead: "Enerji, şehirler, döngüsel ekonomi ve biyoekonomi alanlarında yapay zeka destekli çözümler geliştiren, ilk günden global hedefleyen teknoloji girişimlerine yatırım yapıyoruz.",
+    },
+    facts: [
+      { value: "1M USD", label: "Devam yatırımları dahil girişim başına yatırım" },
+      { value: "12", label: "Sürdürülebilirlik odaklı yatırım alanı" },
+      { value: "10", label: "BM Sürdürülebilir Kalkınma Amacı ile uyum" },
+      { value: "NPCLN", label: "Borsa İstanbul Girişim Sermayesi Pazarı" },
+    ],
+    thesis: {
+      eyebrow: "Yatırım tezimiz",
+      title: "Sürdürülebilirlik ile yapay zekanın kesiştiği yerde",
+      lead: "İklim ve kaynak sorunlarını çözen teknolojilerin, aynı zamanda en büyük ekonomik fırsatlardan biri olduğuna inanıyoruz. Bu dönüşümü hızlandıran kuruculara erken aşamada ortak oluyoruz.",
+      pillars: [
+        {
+          title: "Sürdürülebilirlik merkezde",
+          text: "Sürdürülebilirliği iş modelinin merkezine koyan, çevresel ve toplumsal fayda üreten girişimler.",
+        },
+        {
+          title: "Yapay zeka destekli",
+          text: "Veriyi ve yapay zekayı endüstriyel ölçekte verimlilik, maliyet ve emisyon avantajına dönüştüren teknolojiler.",
+        },
+        {
+          title: "İlk günden global",
+          text: "Dijital, inovasyon odaklı iş modeliyle küresel pazarlara açılmayı hedefleyen, yüksek büyüme potansiyelli ekipler.",
+        },
+      ],
+      stageLabel: "Aşama",
+      stage: "Erken aşama ve büyüme aşaması",
+      ticketLabel: "Yatırım büyüklüğü",
+      ticket: "Devam yatırımları ile birlikte 1M USD'ye kadar",
+      focusLabel: "Odak",
+      focus: "Global vizyonlu, sürdürülebilirlik odaklı teknoloji girişimleri",
+    },
+    sectors: {
+      eyebrow: "Yatırım alanlarımız",
+      title: "Dört tema, on iki odak alanı",
+      lead: "Sürdürülebilirlik odaklı teknolojiler alanında yapay zeka destekli ve teknoloji tabanlı erken aşama girişimlere yatırım yapıyoruz.",
+    },
+    portfolio: {
+      eyebrow: "Portföy",
+      title: "Geleceğin enerji altyapısını kuran şirketler",
+      lead: "Rüzgar türbinlerinden elektrik tedarikine ve yeni nesil nükleer reaktörlere kadar, ölçülebilir etki üreten girişimlerle yol alıyoruz.",
+    },
+    value: {
+      eyebrow: "Sermayeden fazlası",
+      title: "Girişimlerin büyümesini ve küresel başarısını hızlandırıyoruz",
+      lead: "Yatırım yaptığımız girişimlere finansal desteğin yanı sıra stratejik rehberlik, iş geliştirme ve geniş bir iş ağına erişim sunuyoruz. Yönetim ekibimiz ve danışma kurulumuzla yakın çalışarak operasyonel destek sağlıyoruz.",
+    },
+    structure: {
+      eyebrow: "Fon yapısı",
+      title: "Enerji sektörünün liderleriyle kurulan bir fon",
+      lead: "Neo Portföy ve INVEXEN'in tecrübesiyle desteklenen fon yönetimi, YEO Teknoloji ve Biotrend Enerji'nin lider yatırımcı olarak katılımıyla yüksek getiri ve etkin risk yönetimi hedefliyor.",
+    },
+    investors: {
+      eyebrow: "Yatırımcılar için",
+      title: "Çağın ötesindeki teknolojilere erken erişim",
+      lead: "Cleantech GSYF, Borsa İstanbul'da işlem gören yapısı ve vergi avantajlarıyla nitelikli yatırımcıları küresel sürdürülebilirlik ekosistemiyle buluşturuyor.",
+      points: [
+        { value: "NPCLN", label: "Borsa İstanbul'da işlem görür, ikincil piyasa likiditesi sağlar" },
+        { value: "%0", label: "İki yıl elde tutmada stopaj oranı" },
+        { value: "%3", label: "Ar-Ge yükümlülüğü fon aracılığıyla karşılanabilir" },
+      ],
+      cta: "Yatırımcı rehberi",
+    },
+    news: {
+      eyebrow: "Haberler",
+      title: "Fondan son gelişmeler",
+    },
+    faq: {
+      eyebrow: "Sıkça sorulan sorular",
+      title: "GSYF hakkında merak edilenler",
+      lead: "Farklı bir sorunuz mu var? Ekibimiz size yardımcı olmaktan memnuniyet duyar.",
+    },
+  },
+  cta: {
+    title: "Sürdürülebilirlik odaklı yenilikçi teknolojilerle geleceği birlikte şekillendirelim",
+    lead: "İster geleceğin teknolojisini inşa eden bir kurucu, ister bu dönüşüme ortak olmak isteyen bir yatırımcı olun, sizinle tanışmak isteriz.",
+  },
+  about: {
+    title: "Hakkımızda",
+    lead: "Cleantech Ventures, sürdürülebilirlik odaklı teknoloji girişimlerini destekleyen bir girişim sermayesi yatırım fonudur.",
+    who: {
+      eyebrow: "Biz kimiz?",
+      title: "Sürdürülebilir geleceği teknoloji yatırımlarıyla şekillendiriyoruz",
+      body: [
+        "Sürdürülebilir Enerji, Enerji Verimliliği, Enerji Üretimi, Akıllı Şehirler, Akıllı Şebekeler, Atık Yönetimi, Geri Dönüşüm, Enerji Depolama, Biyoteknoloji, Su ve Kaynak Yönetimi gibi alanlarda teknoloji tabanlı ve yapay zeka destekli endüstriyel çözümler geliştiren girişimlere yatırım yapıyoruz.",
+        "Teknoloji ve yenilik odaklı iş modelleriyle büyüme potansiyeli yüksek, ilk günden global pazarlara açılmayı amaçlayan girişimlere yatırımcı olmayı hedefliyoruz.",
+      ],
+    },
+    impact: {
+      eyebrow: "Etki",
+      title: "Sürdürülebilir geleceğe etki",
+      lead: "Çevresel ve toplumsal fayda sağlayan girişimlere yatırım yaparak etki odaklı bir portföy oluşturma kararlılığındayız. Portföyümüz için belirlediğimiz yıllık etki hedefleri:",
+    },
+    sdg: {
+      eyebrow: "BM Sürdürülebilir Kalkınma Amaçları",
+      title: "10 amaçla uyumlu bir yatırım stratejisi",
+      lead: "Birleşmiş Milletler Sürdürülebilir Kalkınma Amaçları'na paralel çözümler üreten girişimlere yatırım yapıyoruz.",
+    },
+    why: {
+      eyebrow: "Neden Cleantech Ventures?",
+      title: "Sürdürülebilir gelecek için stratejik yaklaşımımız",
+    },
+  },
+  founders: {
+    title: "Geleceği inşa eden kuruculara",
+    lead: "Pazar dinamiklerini değiştirme hırsına sahip, sürdürülebilirlik odaklı teknoloji girişimlerine erken aşamada ortak oluyoruz.",
+    look: {
+      eyebrow: "Ne arıyoruz?",
+      title: "Yatırım stratejimiz ve kriterlerimiz",
+      lead: "Yetkin ve nitelikli kurucu ekibe, global ölçekte büyüme potansiyeline, yenilikçi teknoloji tabanlı iş modeline ve pazar dinamiklerini değiştirme hırsına sahip girişimlere yatırım yapıyoruz.",
+    },
+    process: {
+      eyebrow: "Süreç",
+      title: "Başvurudan yatırıma",
+      steps: [
+        { title: "Başvuru", text: "Girişim başvuru formunu doldurun; sunum ve temel metriklerinizi paylaşın." },
+        { title: "Ön değerlendirme", text: "Yatırım ekibimiz girişiminizi tezimiz ve kriterlerimiz doğrultusunda inceler, sizinle tanışır." },
+        { title: "Detaylı inceleme", text: "Teknoloji, pazar, ekip ve finansallar üzerine karşılıklı ve şeffaf bir due diligence süreci yürütülür." },
+        { title: "Yatırım komitesi", text: "Sektör lideri yatırım komitemizin onayıyla yatırım tamamlanır ve değer yaratma süreci başlar." },
+      ],
+    },
+    support: {
+      eyebrow: "Değer yaratma",
+      title: "Operasyonel destek ile büyümeyi hızlandırıyoruz",
+    },
+  },
+  investors: {
+    title: "Yatırımcılar",
+    lead: "Cleantech GSYF; nitelikli yatırımcılara sürdürülebilirlik odaklı, küresel ölçekte büyüyen ileri teknoloji girişimlerine erişim sağlayan, SPK düzenlemesine tabi bir girişim sermayesi yatırım fonudur.",
+    why: {
+      eyebrow: "Neden Cleantech GSYF?",
+      title: "Finansal getiri ve ölçülebilir etki bir arada",
+      cards: [
+        {
+          title: "Borsa İstanbul'da işlem görür",
+          text: "Fon, Borsa İstanbul Girişim Sermayesi Pazarı'nda NPCLN koduyla işlem görür. Yatırım hesabınız üzerinden kolay erişim ve ikincil piyasa likiditesi sunar.",
+        },
+        {
+          title: "Vergi avantajı",
+          text: "Katılma payları iki yıl elde tutulduğunda %0 stopaj; bireysel ve kurumsal yatırımcılar için matrahtan indirim imkânı.",
+        },
+        {
+          title: "Ar-Ge yükümlülüğü",
+          text: "Ar-Ge istisnasından faydalanan ve %3 yatırım yükümlülüğüne tabi şirketler, yükümlülüklerini fon aracılığıyla karşılayıp sürdürülebilir teknolojilere ortak olabilir.",
+        },
+        {
+          title: "Yatırımcı platformu",
+          text: "Yatırımcılara özel dijital platform ile portföy şirketleriyle etkileşim, stratejik işbirlikleri ve yeni yatırım fırsatları.",
+        },
+      ],
+    },
+    tax: {
+      eyebrow: "Vergi avantajı",
+      title: "GSYF yatırımcıları için %0 vergi ve %0 stopaj",
+      individual: "Gerçek kişi",
+      corporate: "Tüzel kişi",
+      income: "Gelir türü",
+      residents: "Tam mükellef",
+      nonResidents: "Dar mükellef",
+    },
+    faq: {
+      eyebrow: "SSS",
+      title: "Yatırımcıların sık sorduğu sorular",
+    },
+    apply: {
+      title: "Fona yatırım yapmak ister misiniz?",
+      text: "Yatırımcı başvuru formunu doldurun; ekibimiz sizinle iletişime geçsin.",
+    },
+  },
+  portfolioPage: {
+    title: "Portföy",
+    lead: "Sürdürülebilirlik ve yapay zekanın kesişiminde, küresel ölçekte büyüyen teknoloji şirketleri.",
+  },
+  teamPage: {
+    title: "Ekip",
+    lead: "Yatırım, teknoloji ve enerji alanlarında deneyimli bir yönetim ekibi ve sektör lideri bir yatırım komitesi.",
+    management: "Fon yönetim ekibi",
+    committee: "Yatırım komitesi",
+  },
+  newsPage: {
+    title: "Haberler",
+    lead: "Yatırımlarımız, portföy şirketlerimiz ve fonla ilgili son gelişmeler.",
+  },
+  insightsPage: {
+    title: "İçgörüler",
+    lead: "Yapay zeka, enerji ve sürdürülebilirliğin kesişimine dair analizler ve yazılar.",
+  },
+  contactPage: {
+    title: "İletişim",
+    lead: "Girişiminizi tanıtmak, fona yatırım yapmak ya da sadece tanışmak için bize ulaşın.",
+    address: "Adres",
+    email: "E-posta",
+    follow: "Bizi takip edin",
+    showOnMap: "Haritada göster",
+    startupTitle: "Girişimciler",
+    startupText: "Sürdürülebilirlik odaklı bir teknoloji girişimi kuruyorsanız başvurunuzu bekliyoruz.",
+    investorTitle: "Yatırımcılar",
+    investorText: "Cleantech GSYF'ye yatırım yapmak için nitelikli yatırımcı başvurusu yapın.",
+  },
+  footer: {
+    tagline: "Sürdürülebilirlik odaklı, yapay zeka destekli teknoloji girişimlerine yatırım yapan girişim sermayesi yatırım fonu.",
+    fund: "Fon",
+    apply: "Başvurular",
+    media: "Medya",
+    legal:
+      "Cleantech Girişim Sermayesi Yatırım Fonu, Neo Portföy Yönetimi A.Ş. kuruculuğunda ve yönetiminde, SPK düzenlemelerine tabi olarak kurulmuştur. Bu sitedeki bilgiler genel bilgilendirme amaçlıdır ve yatırım tavsiyesi niteliği taşımaz.",
+    rights: "Tüm hakları saklıdır.",
+  },
+  notFound: {
+    title: "Sayfa bulunamadı",
+    text: "Aradığınız sayfa taşınmış ya da kaldırılmış olabilir.",
+    home: "Ana sayfaya dön",
+  },
+};
+
+export type Copy = typeof tr;
+
+const en: Copy = {
+  meta: {
+    siteName: "Cleantech Ventures",
+    description:
+      "A venture capital investment fund backing sustainability-focused, AI-powered technology startups. Borsa İstanbul: NPCLN.",
+  },
+  nav: {
+    about: "About",
+    founders: "Founders",
+    investors: "Investors",
+    portfolio: "Portfolio",
+    team: "Team",
+    news: "News",
+    insights: "Insights",
+    contact: "Contact",
+    platform: "Cleantech Platform",
+    menu: "Menu",
+    close: "Close",
+    switchLanguage: "Türkçe'ye geç",
+    skip: "Skip to content",
+  },
+  common: {
+    applyStartup: "Pitch Your Startup",
+    applyInvestor: "Investor Application",
+    contactUs: "Contact Us",
+    learnMore: "Learn more",
+    readMore: "Read more",
+    allNews: "All news",
+    allInsights: "All insights",
+    viewPortfolio: "View portfolio",
+    website: "Website",
+    founders: "Founders",
+    sector: "Sector",
+    headquarters: "HQ",
+    backTo: "Back",
+    readInOther: "Türkçe oku",
+    relatedPosts: "More articles",
+    target: "Target",
+  },
+  home: {
+    hero: {
+      eyebrow: "Venture Capital Investment Fund · Borsa İstanbul: NPCLN",
+      title: "A sustainable future through high-tech investments",
+      lead: "We invest in AI-powered technology startups in energy, cities, the circular economy and the bioeconomy, built to go global from day one.",
+    },
+    facts: [
+      { value: "$1M", label: "Per startup, including follow-on investments" },
+      { value: "12", label: "Sustainability-focused investment areas" },
+      { value: "10", label: "UN Sustainable Development Goals aligned" },
+      { value: "NPCLN", label: "Borsa İstanbul Venture Capital Market" },
+    ],
+    thesis: {
+      eyebrow: "Our thesis",
+      title: "Where sustainability meets artificial intelligence",
+      lead: "We believe the technologies that solve climate and resource challenges are also among the largest economic opportunities of our time. We partner early with founders who accelerate this transition.",
+      pillars: [
+        {
+          title: "Sustainability at the core",
+          text: "Startups that place sustainability at the heart of their business model and create environmental and social value.",
+        },
+        {
+          title: "AI-powered",
+          text: "Technologies that turn data and AI into efficiency, cost and emissions advantages at industrial scale.",
+        },
+        {
+          title: "Global from day one",
+          text: "High-growth teams with digital, innovation-driven business models aiming for global markets from the start.",
+        },
+      ],
+      stageLabel: "Stage",
+      stage: "Early stage and growth stage",
+      ticketLabel: "Ticket size",
+      ticket: "Up to $1M including follow-ons",
+      focusLabel: "Focus",
+      focus: "Sustainability-focused technology startups with a global vision",
+    },
+    sectors: {
+      eyebrow: "Investment focus",
+      title: "Four themes, twelve focus areas",
+      lead: "We invest in AI-powered and technology-driven early-stage startups across sustainability-focused technologies.",
+    },
+    portfolio: {
+      eyebrow: "Portfolio",
+      title: "Companies building tomorrow's energy infrastructure",
+      lead: "From wind turbines to electricity supply and next-generation nuclear reactors, we back startups that deliver measurable impact.",
+    },
+    value: {
+      eyebrow: "Beyond capital",
+      title: "We accelerate startups to growth and global success",
+      lead: "Alongside financial support, we provide strategic guidance, business development and access to an extensive business network, working closely with our management team and advisory board.",
+    },
+    structure: {
+      eyebrow: "Fund structure",
+      title: "A fund built with energy-sector leaders",
+      lead: "Backed by the experience of Neo Portföy and INVEXEN, with YEO Teknoloji and Biotrend Enerji as lead investors, the fund targets high returns with effective risk management.",
+    },
+    investors: {
+      eyebrow: "For investors",
+      title: "Early access to technologies ahead of their time",
+      lead: "Listed on Borsa İstanbul and backed by tax advantages, Cleantech GSYF connects qualified investors with the global sustainability ecosystem.",
+      points: [
+        { value: "NPCLN", label: "Traded on Borsa İstanbul with secondary-market liquidity" },
+        { value: "0%", label: "Withholding tax when held for two years" },
+        { value: "3%", label: "R&D investment obligation can be met through the fund" },
+      ],
+      cta: "Investor guide",
+    },
+    news: {
+      eyebrow: "News",
+      title: "Latest from the fund",
+    },
+    faq: {
+      eyebrow: "FAQ",
+      title: "Questions about VCIFs",
+      lead: "Have a different question? Our team will be happy to help.",
+    },
+  },
+  cta: {
+    title: "Let's shape the future together with sustainability-focused innovative technologies",
+    lead: "Whether you are a founder building tomorrow's technology or an investor who wants to be part of this transition, we would love to meet you.",
+  },
+  about: {
+    title: "About",
+    lead: "Cleantech Ventures is a venture capital investment fund backing sustainability-focused technology startups.",
+    who: {
+      eyebrow: "Who we are",
+      title: "Shaping a sustainable future through technology investments",
+      body: [
+        "We invest in startups developing technology-based, AI-powered industrial solutions in Sustainable Energy, Energy Efficiency, Energy Production, Smart Cities, Smart Grids, Waste Management, Recycling, Energy Storage, Biotechnology, and Water and Resource Management.",
+        "We aim to back startups with high growth potential and innovation-driven business models that set out to reach global markets from day one.",
+      ],
+    },
+    impact: {
+      eyebrow: "Impact",
+      title: "Impact for a sustainable future",
+      lead: "We are committed to building an impact-focused portfolio by investing in startups that create environmental and social benefits. Our annual impact targets for the portfolio:",
+    },
+    sdg: {
+      eyebrow: "UN Sustainable Development Goals",
+      title: "A strategy aligned with 10 goals",
+      lead: "We invest in startups that create solutions in line with the United Nations Sustainable Development Goals.",
+    },
+    why: {
+      eyebrow: "Why Cleantech Ventures?",
+      title: "Our strategic approach for a sustainable future",
+    },
+  },
+  founders: {
+    title: "For founders building the future",
+    lead: "We partner early with sustainability-focused technology startups that have the ambition to change market dynamics.",
+    look: {
+      eyebrow: "What we look for",
+      title: "Investment strategy and criteria",
+      lead: "We invest in startups with a strong, qualified team, the potential to grow globally, an innovative technology-based business model and the ambition to change market dynamics.",
+    },
+    process: {
+      eyebrow: "Process",
+      title: "From application to investment",
+      steps: [
+        { title: "Apply", text: "Complete the startup application form and share your deck and key metrics." },
+        { title: "First review", text: "Our investment team reviews your startup against our thesis and criteria, and meets with you." },
+        { title: "Due diligence", text: "A transparent, two-way review of technology, market, team and financials." },
+        { title: "Investment committee", text: "With the approval of our industry-leading committee, the investment closes and value creation begins." },
+      ],
+    },
+    support: {
+      eyebrow: "Value creation",
+      title: "Operational support that accelerates growth",
+    },
+  },
+  investors: {
+    title: "Investors",
+    lead: "Cleantech GSYF is a CMB-regulated venture capital investment fund giving qualified investors access to sustainability-focused, globally scaling deep-tech startups.",
+    why: {
+      eyebrow: "Why Cleantech GSYF?",
+      title: "Financial returns and measurable impact, together",
+      cards: [
+        {
+          title: "Listed on Borsa İstanbul",
+          text: "The fund trades on the Borsa İstanbul Venture Capital Market under the ticker NPCLN, offering easy access via your brokerage account and secondary-market liquidity.",
+        },
+        {
+          title: "Tax advantages",
+          text: "0% withholding tax on units held for two years, plus tax-base deductions for individual and corporate investors.",
+        },
+        {
+          title: "R&D obligation",
+          text: "Companies benefiting from the R&D exemption with a 3% investment obligation can fulfil it through the fund while backing sustainable technologies.",
+        },
+        {
+          title: "Investor platform",
+          text: "A dedicated digital platform to engage with portfolio companies, build strategic partnerships and discover new opportunities.",
+        },
+      ],
+    },
+    tax: {
+      eyebrow: "Tax advantage",
+      title: "0% tax and 0% withholding for VCIF investors",
+      individual: "Individuals",
+      corporate: "Corporations",
+      income: "Income type",
+      residents: "Full taxpayers (residents)",
+      nonResidents: "Limited taxpayers (non-residents)",
+    },
+    faq: {
+      eyebrow: "FAQ",
+      title: "Frequently asked investor questions",
+    },
+    apply: {
+      title: "Interested in investing in the fund?",
+      text: "Complete the investor application form and our team will get in touch.",
+    },
+  },
+  portfolioPage: {
+    title: "Portfolio",
+    lead: "Technology companies scaling globally at the intersection of sustainability and artificial intelligence.",
+  },
+  teamPage: {
+    title: "Team",
+    lead: "An experienced management team across investment, technology and energy, and an industry-leading investment committee.",
+    management: "Fund management team",
+    committee: "Investment committee",
+  },
+  newsPage: {
+    title: "News",
+    lead: "The latest on our investments, portfolio companies and the fund.",
+  },
+  insightsPage: {
+    title: "Insights",
+    lead: "Analysis and articles at the intersection of AI, energy and sustainability.",
+  },
+  contactPage: {
+    title: "Contact",
+    lead: "Reach out to pitch your startup, invest in the fund, or simply to say hello.",
+    address: "Address",
+    email: "Email",
+    follow: "Follow us",
+    showOnMap: "Show on map",
+    startupTitle: "Founders",
+    startupText: "Building a sustainability-focused technology startup? We would love to hear from you.",
+    investorTitle: "Investors",
+    investorText: "Apply as a qualified investor to invest in Cleantech GSYF.",
+  },
+  footer: {
+    tagline: "A venture capital investment fund backing sustainability-focused, AI-powered technology startups.",
+    fund: "Fund",
+    apply: "Apply",
+    media: "Media",
+    legal:
+      "Cleantech Venture Capital Investment Fund is established and managed by Neo Portföy Yönetimi A.Ş. under Capital Markets Board regulations. Information on this site is for general purposes only and does not constitute investment advice.",
+    rights: "All rights reserved.",
+  },
+  notFound: {
+    title: "Page not found",
+    text: "The page you are looking for may have been moved or removed.",
+    home: "Back to home",
+  },
+};
+
+export const copy: Record<Locale, Copy> = { tr, en };
