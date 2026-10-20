@@ -37,7 +37,7 @@ export function ImpactScale({ locale, labels }: { locale: Locale; labels: Labels
             {TICKS.map((t) => (
               <span
                 key={t}
-                className={`type-label absolute top-0 -translate-x-1/2 text-[0.625rem] text-fog ${t % 50 === 0 ? "" : "max-lg:hidden"} ${t === 0 ? "translate-x-0" : ""} ${t === 100 ? "-translate-x-full" : ""}`}
+                className={`type-label absolute top-0 -translate-x-1/2 text-[0.625rem] text-fog ${t % 50 === 0 ? "" : "max-xl:hidden"} ${t === 0 ? "translate-x-0" : ""} ${t === 100 ? "-translate-x-full" : ""}`}
                 style={{ left: `${t}%` }}
               >
                 {t}

@@ -181,11 +181,11 @@ export function OrbitMap({
   ].join("");
 
   return (
-    <div data-orbit className="grid gap-x-6 gap-y-14 lg:grid-cols-12">
+    <div data-orbit className="grid gap-x-6 gap-y-14 xl:grid-cols-12">
       <style>{css}</style>
 
       {/* ── Diagram ── */}
-      <div className="lg:order-2 lg:col-span-8 xl:col-span-8">
+      <div className="xl:order-2 xl:col-span-8">
         <figure aria-label={labels.mapLabel} className="relative">
           {/* square variant (< md) */}
           <div className="relative mx-auto max-w-[34rem] md:hidden">
@@ -197,7 +197,7 @@ export function OrbitMap({
             <OrbitSvg variant="square" placed={placed} locale={locale} />
           </div>
           {/* wide variant with callouts (md+) */}
-          <div className="relative max-md:hidden">
+          <div className="relative mx-auto max-w-[60rem] max-md:hidden">
             <div
               aria-hidden
               className="orbit-sweep pointer-events-none absolute aspect-square rounded-full"
@@ -230,9 +230,9 @@ export function OrbitMap({
       </div>
 
       {/* ── Legend: the accessible content ── */}
-      <div className="lg:order-1 lg:col-span-4 xl:col-span-4">
+      <div className="xl:order-1 xl:col-span-4">
         <p className="type-label border-b border-line-strong pb-4 text-fog">{labels.themes}</p>
-        <ol>
+        <ol className="md:grid md:grid-cols-2 md:gap-x-6 xl:block">
           {clusters.map((cl, i) => {
             const own = placed.filter((p) => p.ring === i);
             return (

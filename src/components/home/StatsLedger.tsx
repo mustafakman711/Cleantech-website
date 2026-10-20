@@ -14,7 +14,7 @@ export function StatsLedger({ stats, locale, index }: { stats: Stats; locale: Lo
   const ticker = stats.items.find((s) => s.text);
   const nf = locale === "tr" ? "tr-TR" : "en-GB";
   return (
-    <section aria-labelledby="stats-title" className="band-bone section-y relative overflow-hidden">
+    <section aria-labelledby="stats-title" className="band-bone section-y relative overflow-clip">
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgb(0_36_40/0.07)_1px,transparent_1.2px)] [background-size:24px_24px] [mask-image:linear-gradient(to_bottom,black,transparent_60%)]" />
       <div className="container-site relative">
         <SectionHeader id="stats-title" index={index} label={stats.label} title={stats.title} accent={stats.accent} tone="light" />

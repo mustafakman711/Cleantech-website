@@ -59,7 +59,7 @@ export default async function AboutPage({ params }: Props) {
       </section>
 
       {/* ─────────────── 03 — Impact (signature, petrol flood) ─────────────── */}
-      <section aria-labelledby="impact-title" className="section-y relative overflow-hidden bg-petrol-800">
+      <section aria-labelledby="impact-title" className="section-y relative overflow-clip bg-petrol-800">
         <div aria-hidden className="dot-grid pointer-events-none absolute inset-0 opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_55%)]" />
         <div className="container-site relative">
           <SectionHeader
@@ -99,7 +99,7 @@ export default async function AboutPage({ params }: Props) {
       </section>
 
       {/* ─────────────── 05 — Why us (light band) ─────────────── */}
-      <section aria-labelledby="why-title" className="band-bone section-y relative overflow-hidden">
+      <section aria-labelledby="why-title" className="band-bone section-y relative overflow-clip">
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgb(0_36_40/0.07)_1px,transparent_1.2px)] [background-size:24px_24px] [mask-image:linear-gradient(to_bottom,black,transparent_60%)]" />
         <div className="container-site relative">
           <SectionHeader id="why-title" index="05" label={a.why.label} title={a.why.title} accent={a.why.accent} tone="light" />

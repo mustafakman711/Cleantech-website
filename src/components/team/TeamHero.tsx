@@ -4,6 +4,10 @@ import { ChapterLabel, withAccent } from "../ui";
  * Team hero: a giant cropped "EKİP" / "TEAM" (Mona Sans expanded, petrol-800) sits behind the heading
  * (World Fund pattern), bleeding off the bottom edge. Mono roster strip underneath the lead.
  */
+/** Rough advance widths (em) of Mona Sans 125% / 620 with the -0.055em tracking, to fit any word edge to edge. */
+const GLYPH_EM: Record<string, number> = { I: 0.34, İ: 0.34, M: 1.02, W: 1.15, A: 0.86, T: 0.76, E: 0.72, K: 0.8, P: 0.76 };
+const wordEm = (w: string) => [...w].reduce((sum, ch) => sum + (GLYPH_EM[ch] ?? 0.8), 0);
+
 export function TeamHero({
   eyebrow,
   title,
@@ -44,8 +48,12 @@ export function TeamHero({
         </div>
       </div>
       {/* giant cropped word, bleeding off the bottom edge */}
-      <div aria-hidden className="pointer-events-none relative -z-10 mt-8 h-[min(23vw,24rem)] select-none overflow-hidden lg:-mt-[3vw]">
-        <span className="absolute inset-x-0 top-0 block whitespace-nowrap text-center text-[min(34vw,36rem)] font-[620] leading-[0.8] tracking-[-0.055em] text-petrol-800 [font-stretch:125%]">
+      <div
+        aria-hidden
+        className="pointer-events-none relative -z-10 mt-8 h-[calc(var(--fs)*0.82)] select-none overflow-hidden lg:mt-4"
+        style={{ ["--fs" as string]: `min(${(92 / wordEm(word)).toFixed(2)}vw, 36rem)` }}
+      >
+        <span className="absolute inset-x-0 top-0 block whitespace-nowrap text-center text-[length:var(--fs)] font-[620] leading-[1] tracking-[-0.055em] text-petrol-800 [font-stretch:125%]">
           {word}
         </span>
       </div>

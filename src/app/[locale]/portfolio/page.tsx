@@ -27,7 +27,7 @@ export default async function PortfolioPage({ params }: Props) {
       <PageHero eyebrow={p.title} title={p.heroTitle} accent={p.heroAccent} lead={p.lead} />
 
       {/* ─────────────── 01 — Orbit (signature) ─────────────── */}
-      <section aria-labelledby="orbit-title" className="section-y relative overflow-hidden bg-abyss-900">
+      <section aria-labelledby="orbit-title" className="section-y relative overflow-clip bg-abyss-900">
         <div aria-hidden className="dot-grid pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(55%_60%_at_66%_62%,black,transparent)]" />
         <div className="container-site relative">
           <SectionHeader id="orbit-title" index="01" label={p.orbit.label} title={p.orbit.title} accent={p.orbit.accent} lead={p.orbit.lead} />
