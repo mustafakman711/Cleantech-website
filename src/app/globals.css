@@ -402,9 +402,17 @@
 .mf-word {
   color: var(--color-mist);
 }
+/* Highlighter opacity is a registered number so the whole phrase fades in uniformly (never a partial
+   width sweep that splits words), and box-decoration-break keeps wrapped lines fully covered. */
+@property --mk {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
 .mf-mark {
+  --mk: 1;
   background-color: transparent;
-  background-image: linear-gradient(var(--color-volt), var(--color-volt));
+  background-image: linear-gradient(rgb(44 255 152 / var(--mk)), rgb(44 255 152 / var(--mk)));
   background-repeat: no-repeat;
   background-position: 0 58%;
   background-size: 100% 0.94em;
@@ -630,7 +638,7 @@ details.disclosure[open]::details-content {
     .mf-mark {
       animation: mf-mark linear both;
       animation-timeline: --mf;
-      animation-range: cover calc(18% + var(--p) * 34%) cover calc(26% + var(--p) * 34%);
+      animation-range: cover calc(18% + var(--p) * 34%) cover calc(22% + var(--p) * 34%);
     }
   }
 
@@ -687,11 +695,11 @@ details.disclosure[open]::details-content {
   }
   @keyframes mf-mark {
     from {
-      background-size: 0% 0.94em;
+      --mk: 0;
       color: var(--color-mist);
     }
     to {
-      background-size: 100% 0.94em;
+      --mk: 1;
       color: var(--color-abyss-950);
     }
   }

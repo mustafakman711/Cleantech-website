@@ -44,7 +44,7 @@ export default async function HomePage({ params }: Props) {
         <div className="container-site flex flex-col pt-[calc(var(--header-h)+2rem)] xl:min-h-[max(100svh,46rem)] xl:pt-[calc(var(--header-h)+3rem)]">
           <Eyebrow className="fade-in-late">{h.hero.eyebrow}</Eyebrow>
 
-          <CircuitTree id="ct-sm" className="pointer-events-none -mb-4 mt-2 h-[clamp(15rem,58vw,26rem)] w-auto self-center sm:self-end md:hidden" />
+          <CircuitTree id="ct-sm" className="pointer-events-none -mb-6 mt-0 h-[clamp(13rem,52vw,26rem)] w-auto self-center sm:self-end md:hidden" />
 
           <h1 className="type-display mt-6 text-mist md:mt-20 xl:mt-auto xl:max-w-[11ch]">
             <span className="sr-only">{h.hero.title}</span>
