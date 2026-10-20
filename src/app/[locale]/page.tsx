@@ -38,7 +38,7 @@ export default async function HomePage({ params }: Props) {
 
         <CircuitTree
           id="ct-lg"
-          className="pointer-events-none absolute -right-12 top-[calc(var(--header-h)+1.5rem)] -z-10 hidden h-[30rem] w-auto md:block lg:h-[34rem] xl:right-[calc(var(--gutter)-2rem)] xl:top-[calc(var(--header-h)+1rem)] xl:h-[calc(100%-var(--header-h)-7.5rem)] xl:max-h-[54rem]"
+          className="pointer-events-none absolute -right-12 top-[calc(var(--header-h)+1.5rem)] -z-10 hidden h-[30rem] w-auto md:block lg:h-[34rem] xl:right-[calc(var(--gutter)-2rem)] xl:top-[calc(var(--header-h)+1rem)] xl:h-[calc(100%-var(--header-h)-11rem)] xl:max-h-[54rem]"
         />
 
         <div className="container-site flex flex-col pt-[calc(var(--header-h)+2rem)] xl:min-h-[max(100svh,46rem)] xl:pt-[calc(var(--header-h)+3rem)]">
@@ -46,7 +46,7 @@ export default async function HomePage({ params }: Props) {
 
           <CircuitTree id="ct-sm" className="pointer-events-none -mb-6 mt-0 h-[clamp(13rem,52vw,26rem)] w-auto self-center sm:self-end md:hidden" />
 
-          <h1 className="type-display mt-6 text-mist md:mt-20 xl:mt-auto xl:max-w-[11ch]">
+          <h1 className="type-display mt-6 text-mist md:mt-20 xl:mt-auto xl:max-w-[11ch] xl:pt-[0.2em]">
             <span className="sr-only">{h.hero.title}</span>
             <span aria-hidden>
               {h.hero.titleLines.map((line, i) => (
@@ -247,7 +247,7 @@ export default async function HomePage({ params }: Props) {
                 </h3>
               </article>
 
-              <ul className="border-b border-line lg:col-span-6">
+              <ul className="self-start border-b border-line lg:col-span-6">
                 {moreNews.slice(0, 3).map((post) => (
                   <li key={post.slug} className="group relative border-t border-line has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-volt">
                     <div className="grid grid-cols-[1fr_auto] gap-x-6 gap-y-3 py-7 transition-colors group-hover:bg-volt/[0.04] md:grid-cols-[9rem_1fr_auto]">
@@ -278,7 +278,7 @@ export default async function HomePage({ params }: Props) {
         <div className="container-site grid gap-12 lg:grid-cols-12 lg:gap-x-6">
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-[calc(var(--header-h)+2.5rem)]">
-              <SectionHeader id="faq-title" layout="stacked" label={h.faq.eyebrow} title={h.faq.title} accent={h.faq.accent} lead={h.faq.lead}>
+              <SectionHeader id="faq-title" layout="stacked" index="07" label={h.faq.eyebrow} title={h.faq.title} accent={h.faq.accent} lead={h.faq.lead}>
                 <ButtonLink href={`/${locale}/contact`} variant="bracket">
                   {c.common.contactUs}
                 </ButtonLink>

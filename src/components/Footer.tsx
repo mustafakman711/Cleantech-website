@@ -8,6 +8,7 @@ import type { Locale } from "@/lib/i18n";
 import { getPosts } from "@/lib/posts";
 import { InstagramIcon, LinkedInIcon, XIcon } from "./icons";
 import { LocalTime } from "./LocalTime";
+import { HideOnPaths } from "./HideOnPaths";
 import { Logo } from "./Logo";
 import { ButtonLink, ChapterLabel, withAccent } from "./ui";
 
@@ -58,34 +59,38 @@ export function Footer({ locale }: { locale: Locale }) {
   return (
     <footer className="relative overflow-hidden bg-abyss-950 text-mist">
       <div className="container-site pt-24 md:pt-32">
-        {/* CTA row */}
-        <ChapterLabel label={f.ctaLabel} />
-        <h2 className="type-h2 mt-8 max-w-[16ch] text-mist">{withAccent(f.ctaTitle, f.ctaAccent)}</h2>
-        <div className="mt-12 grid gap-10 xl:grid-cols-12 xl:items-end">
-          <div className="min-w-0 xl:col-span-8">
-            <p className="type-label text-slate">{f.writeUs}</p>
-            <a
-              href={`mailto:${contact.email}`}
-              className="group mt-3 inline-flex max-w-full items-start gap-3 text-[clamp(1.25rem,0.5rem+3.6vw,4rem)] font-[380] leading-[1.05] tracking-[-0.035em] text-mist [font-stretch:104%] [overflow-wrap:anywhere] hover:text-volt"
-            >
-              <span className="link-trace pb-1">{contact.email}</span>
-              <ArrowUpRight
-                aria-hidden
-                className="mt-[0.15em] size-[0.7em] shrink-0 text-volt transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1"
-                strokeWidth={1.25}
-              />
-            </a>
+        {/* CTA row (the contact page already leads with the same email + applications, so it is skipped there) */}
+        <HideOnPaths suffixes={["/contact"]}>
+          <div className="mb-20">
+            <ChapterLabel label={f.ctaLabel} />
+            <h2 className="type-h2 mt-8 max-w-[16ch] text-mist">{withAccent(f.ctaTitle, f.ctaAccent)}</h2>
+            <div className="mt-12 grid gap-10 xl:grid-cols-12 xl:items-end">
+              <div className="min-w-0 xl:col-span-8">
+                <p className="type-label text-slate">{f.writeUs}</p>
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="group mt-1 inline-flex max-w-full items-start gap-3 py-2 text-[clamp(1.25rem,0.5rem+3.6vw,4rem)] font-[380] leading-[1.05] tracking-[-0.035em] text-mist [font-stretch:104%] [overflow-wrap:anywhere] hover:text-volt"
+                >
+                  <span className="link-trace pb-1">{contact.email}</span>
+                  <ArrowUpRight
+                    aria-hidden
+                    className="mt-[0.15em] size-[0.7em] shrink-0 text-volt transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1"
+                    strokeWidth={1.25}
+                  />
+                </a>
+              </div>
+              <div className="flex flex-wrap gap-3 xl:col-span-4 xl:justify-end">
+                <ButtonLink href={contact.startupFormUrl}>{c.common.applyStartup}</ButtonLink>
+                <ButtonLink href={contact.investorFormUrl} variant="bracket">
+                  {c.common.applyInvestor}
+                </ButtonLink>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-3 xl:col-span-4 xl:justify-end">
-            <ButtonLink href={contact.startupFormUrl}>{c.common.applyStartup}</ButtonLink>
-            <ButtonLink href={contact.investorFormUrl} variant="bracket">
-              {c.common.applyInvestor}
-            </ButtonLink>
-          </div>
-        </div>
+        </HideOnPaths>
 
         {/* Nav grid */}
-        <div className="mt-20 grid grid-cols-2 gap-x-6 gap-y-12 border-t border-line pt-12 md:grid-cols-12 md:pt-16">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-12 border-t border-line pt-12 md:grid-cols-12 md:pt-16">
           <div className="col-span-2 md:col-span-12 lg:col-span-4">
             <Logo className="h-9 w-auto" />
             <p className="mt-6 max-w-[34ch] text-[0.9375rem] leading-relaxed text-fog">{f.tagline}</p>

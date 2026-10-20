@@ -68,7 +68,7 @@ export default async function TeamPage({ params }: Props) {
         </div>
       </section>
 
-      <CtaBand locale={locale} />
+      <CtaBand locale={locale} index="03" />
     </>
   );
 }

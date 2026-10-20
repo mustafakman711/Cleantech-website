@@ -69,7 +69,6 @@ export default async function AboutPage({ params }: Props) {
             title={a.impact.title}
             accent={a.impact.accent}
             lead={a.impact.lead}
-            className="[&_.text-slate]:text-fog"
           />
           <div className="mt-16 lg:mt-24">
             <ImpactScale
@@ -109,7 +108,7 @@ export default async function AboutPage({ params }: Props) {
         </div>
       </section>
 
-      <CtaBand locale={locale} />
+      <CtaBand locale={locale} index="06" />
     </>
   );
 }

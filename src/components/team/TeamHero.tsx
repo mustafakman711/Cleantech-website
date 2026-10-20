@@ -23,6 +23,9 @@ export function TeamHero({
   word: string;
   stats: { label: string; value: number; href: string }[];
 }) {
+  // Headroom (in font-size units) above the cap height when the word carries a diacritic (TR "EKİP"), so the
+  // dot of the İ is not sliced flat by the crop box; the bottom crop of the letters stays the same.
+  const top = /[İÜÖÇŞĞ]/.test(word) ? 0.14 : 0;
   return (
     <section className="relative isolate overflow-hidden border-b border-line bg-abyss-900">
       <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(90%_70%_at_85%_0%,rgb(0_76_84/0.55),transparent_70%)]" />
@@ -50,10 +53,10 @@ export function TeamHero({
       {/* giant cropped word, bleeding off the bottom edge */}
       <div
         aria-hidden
-        className="pointer-events-none relative -z-10 mt-8 h-[calc(var(--fs)*0.82)] select-none overflow-hidden lg:mt-4"
-        style={{ ["--fs" as string]: `min(${(92 / wordEm(word)).toFixed(2)}vw, 36rem)` }}
+        className="pointer-events-none relative -z-10 mt-8 h-[calc(var(--fs)*(0.82_+_var(--top)))] select-none overflow-hidden lg:mt-4"
+        style={{ ["--fs" as string]: `min(${(92 / wordEm(word)).toFixed(2)}vw, 36rem)`, ["--top" as string]: top }}
       >
-        <span className="absolute inset-x-0 top-0 block whitespace-nowrap text-center text-[length:var(--fs)] font-[620] leading-[1] tracking-[-0.055em] text-petrol-800 [font-stretch:125%]">
+        <span className="absolute inset-x-0 top-[calc(var(--fs)*var(--top))] block whitespace-nowrap text-center text-[length:var(--fs)] font-[620] leading-[1] tracking-[-0.055em] text-petrol-800 [font-stretch:125%]">
           {word}
         </span>
       </div>

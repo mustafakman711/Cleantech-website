@@ -48,7 +48,7 @@ export default async function PortfolioPage({ params }: Props) {
         <OpenOnHash />
       </section>
 
-      <CtaBand locale={locale} />
+      <CtaBand locale={locale} index="03" />
     </>
   );
 }

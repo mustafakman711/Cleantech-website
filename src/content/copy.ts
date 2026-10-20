@@ -26,7 +26,6 @@ const tr = {
     applyStartup: "Girişimini Paylaş",
     applyInvestor: "Yatırımcı Başvurusu",
     contactUs: "Bize Ulaşın",
-    learnMore: "Detaylı bilgi",
     readMore: "Devamını oku",
     allNews: "Tüm haberler",
     allInsights: "Tüm içgörüler",
@@ -34,8 +33,6 @@ const tr = {
     website: "Web sitesi",
     founders: "Kurucular",
     sector: "Sektör",
-    headquarters: "Merkez",
-    backTo: "Geri dön",
     skip: "Geç",
     open: "Aç",
     readInOther: "Read in English",
@@ -56,22 +53,12 @@ const tr = {
       strip: ["BIST: NPCLN", "≤ 1M USD / girişim", "Erken & büyüme aşaması", "12 odak alanı", "10 SKA"],
       lead: "Enerji, şehirler, döngüsel ekonomi ve biyoekonomi alanlarında yapay zeka destekli çözümler geliştiren, ilk günden global hedefleyen teknoloji girişimlerine yatırım yapıyoruz.",
     },
-    facts: [
-      { value: "1M USD", label: "Devam yatırımları dahil girişim başına yatırım" },
-      { value: "12", label: "Sürdürülebilirlik odaklı yatırım alanı" },
-      { value: "10", label: "BM Sürdürülebilir Kalkınma Amacı ile uyum" },
-      { value: "NPCLN", label: "Borsa İstanbul Girişim Sermayesi Pazarı" },
-    ],
     manifesto: {
       label: "Tez",
       title: "Yatırım tezimiz",
       text: "İklim ve kaynak sorunlarını çözen teknolojilerin, aynı zamanda ==en büyük ekonomik fırsatlardan== biri olduğuna inanıyoruz. Sürdürülebilirlik ile yapay zekanın kesiştiği yerde, bu dönüşümü hızlandıran kuruculara ==erken aşamada== ortak oluyoruz.",
     },
     thesis: {
-      eyebrow: "Yatırım tezimiz",
-      title: "Sürdürülebilirlik ile yapay zekanın kesiştiği yerde",
-      accent: "kesiştiği",
-      lead: "İklim ve kaynak sorunlarını çözen teknolojilerin, aynı zamanda en büyük ekonomik fırsatlardan biri olduğuna inanıyoruz. Bu dönüşümü hızlandıran kuruculara erken aşamada ortak oluyoruz.",
       pillars: [
         {
           title: "Sürdürülebilirlik merkezde",
@@ -94,7 +81,6 @@ const tr = {
       focus: "Global vizyonlu, sürdürülebilirlik odaklı teknoloji girişimleri",
     },
     sectors: {
-      eyebrow: "Yatırım alanlarımız",
       label: "Odak",
       title: "Dört tema, on iki odak alanı",
       accent: "on iki",
@@ -123,7 +109,6 @@ const tr = {
       lead: "Rüzgar türbinlerinden elektrik tedarikine ve yeni nesil nükleer reaktörlere kadar, ölçülebilir etki üreten girişimlerle yol alıyoruz.",
     },
     value: {
-      eyebrow: "Sermayeden fazlası",
       title: "Girişimlerin büyümesini ve küresel başarısını hızlandırıyoruz",
       accent: "küresel",
       label: "Değer",
@@ -132,7 +117,6 @@ const tr = {
       lead: "Yatırım yaptığımız girişimlere finansal desteğin yanı sıra stratejik rehberlik, iş geliştirme ve geniş bir iş ağına erişim sunuyoruz. Yönetim ekibimiz ve danışma kurulumuzla yakın çalışarak operasyonel destek sağlıyoruz.",
     },
     structure: {
-      eyebrow: "Fon yapısı",
       title: "Enerji sektörünün liderleriyle kurulan bir fon",
       accent: "liderleriyle",
       label: "Yapı",
@@ -165,7 +149,7 @@ const tr = {
   },
   cta: {
     title: "Sürdürülebilirlik odaklı yenilikçi teknolojilerle geleceği birlikte şekillendirelim",
-    lead: "İster geleceğin teknolojisini inşa eden bir kurucu, ister bu dönüşüme ortak olmak isteyen bir yatırımcı olun, sizinle tanışmak isteriz.",
+    accent: "geleceği",
   },
   about: {
     title: "Hakkımızda",
@@ -173,7 +157,6 @@ const tr = {
     heroTitle: "İklim teknolojilerine akıllı sermaye",
     heroAccent: "akıllı",
     who: {
-      eyebrow: "Biz kimiz?",
       label: "Biz kimiz",
       accent: "teknoloji",
       title: "Sürdürülebilir geleceği teknoloji yatırımlarıyla şekillendiriyoruz",
@@ -197,7 +180,6 @@ const tr = {
       label: "Yapı",
     },
     impact: {
-      eyebrow: "Etki",
       label: "Etki",
       title: "Sürdürülebilir geleceğe etki",
       accent: "etki",
@@ -210,7 +192,6 @@ const tr = {
       lead: "Çevresel ve toplumsal fayda sağlayan girişimlere yatırım yaparak etki odaklı bir portföy oluşturma kararlılığındayız. Portföyümüz için belirlediğimiz yıllık etki hedefleri:",
     },
     sdg: {
-      eyebrow: "BM Sürdürülebilir Kalkınma Amaçları",
       title: "10 amaçla uyumlu bir yatırım stratejisi",
       label: "SKA",
       accent: "10 amaçla",
@@ -218,7 +199,6 @@ const tr = {
       lead: "Birleşmiş Milletler Sürdürülebilir Kalkınma Amaçları'na paralel çözümler üreten girişimlere yatırım yapıyoruz.",
     },
     why: {
-      eyebrow: "Neden Cleantech Ventures?",
       label: "Neden biz",
       title: "Sürdürülebilir gelecek için stratejik yaklaşımımız",
       accent: "stratejik",
@@ -230,7 +210,6 @@ const tr = {
     lead: "Pazar dinamiklerini değiştirme hırsına sahip, sürdürülebilirlik odaklı teknoloji girişimlerine erken aşamada ortak oluyoruz.",
     termSheet: "Yatırım künyesi",
     look: {
-      eyebrow: "Ne arıyoruz?",
       label: "Kriterler",
       title: "Yatırım stratejimiz ve kriterlerimiz",
       accent: "kriterlerimiz",
@@ -270,7 +249,6 @@ const tr = {
     heading: "Çağın ötesindeki teknolojilere *erken erişim*",
     lead: "Cleantech GSYF; nitelikli yatırımcılara sürdürülebilirlik odaklı, küresel ölçekte büyüyen ileri teknoloji girişimlerine erişim sağlayan, SPK düzenlemesine tabi bir girişim sermayesi yatırım fonudur.",
     why: {
-      eyebrow: "Neden Cleantech GSYF?",
       label: "Neden",
       title: "Finansal getiri ve ölçülebilir etki bir arada",
       accent: "ölçülebilir etki",
@@ -294,7 +272,6 @@ const tr = {
       ],
     },
     tax: {
-      eyebrow: "Vergi avantajı",
       label: "Vergi",
       title: "GSYF yatırımcıları için %0 vergi ve %0 stopaj",
       accent: "%0 stopaj",
@@ -398,7 +375,6 @@ const tr = {
     writeUs: "Bize yazın",
     general: "Genel iletişim",
     manager: "Portföy yönetim şirketi",
-    channels: "Kanallar",
     applyLabel: "Başvurular",
     applyTitle: "Başvurunuz için *iki* kanal",
     address: "Adres",
@@ -464,7 +440,6 @@ const en: Copy = {
     applyStartup: "Pitch Your Startup",
     applyInvestor: "Investor Application",
     contactUs: "Contact Us",
-    learnMore: "Learn more",
     readMore: "Read more",
     allNews: "All news",
     allInsights: "All insights",
@@ -472,8 +447,6 @@ const en: Copy = {
     website: "Website",
     founders: "Founders",
     sector: "Sector",
-    headquarters: "HQ",
-    backTo: "Back",
     skip: "Skip",
     open: "Open",
     readInOther: "Türkçe oku",
@@ -494,22 +467,12 @@ const en: Copy = {
       strip: ["BIST: NPCLN", "≤ $1M / startup", "Early & growth stage", "12 focus areas", "10 SDGs"],
       lead: "We invest in AI-powered technology startups in energy, cities, the circular economy and the bioeconomy, built to go global from day one.",
     },
-    facts: [
-      { value: "$1M", label: "Per startup, including follow-on investments" },
-      { value: "12", label: "Sustainability-focused investment areas" },
-      { value: "10", label: "UN Sustainable Development Goals aligned" },
-      { value: "NPCLN", label: "Borsa İstanbul Venture Capital Market" },
-    ],
     manifesto: {
       label: "Thesis",
       title: "Our thesis",
       text: "We believe the technologies that solve climate and resource challenges are also among ==the largest economic opportunities== of our time. Where sustainability meets artificial intelligence, we partner ==early== with the founders who accelerate this transition.",
     },
     thesis: {
-      eyebrow: "Our thesis",
-      title: "Where sustainability meets artificial intelligence",
-      accent: "meets",
-      lead: "We believe the technologies that solve climate and resource challenges are also among the largest economic opportunities of our time. We partner early with founders who accelerate this transition.",
       pillars: [
         {
           title: "Sustainability at the core",
@@ -532,7 +495,6 @@ const en: Copy = {
       focus: "Sustainability-focused technology startups with a global vision",
     },
     sectors: {
-      eyebrow: "Investment focus",
       label: "Focus",
       title: "Four themes, twelve focus areas",
       accent: "twelve",
@@ -561,7 +523,6 @@ const en: Copy = {
       lead: "From wind turbines to electricity supply and next-generation nuclear reactors, we back startups that deliver measurable impact.",
     },
     value: {
-      eyebrow: "Beyond capital",
       title: "We accelerate startups to growth and global success",
       accent: "global",
       label: "Value",
@@ -570,7 +531,6 @@ const en: Copy = {
       lead: "Alongside financial support, we provide strategic guidance, business development and access to an extensive business network, working closely with our management team and advisory board.",
     },
     structure: {
-      eyebrow: "Fund structure",
       title: "A fund built with energy-sector leaders",
       accent: "leaders",
       label: "Structure",
@@ -603,7 +563,7 @@ const en: Copy = {
   },
   cta: {
     title: "Let's shape the future together with sustainability-focused innovative technologies",
-    lead: "Whether you are a founder building tomorrow's technology or an investor who wants to be part of this transition, we would love to meet you.",
+    accent: "future",
   },
   about: {
     title: "About",
@@ -611,7 +571,6 @@ const en: Copy = {
     heroTitle: "Smart capital for climate technology",
     heroAccent: "Smart",
     who: {
-      eyebrow: "Who we are",
       label: "Who we are",
       accent: "technology",
       title: "Shaping a sustainable future through technology investments",
@@ -635,7 +594,6 @@ const en: Copy = {
       label: "Structure",
     },
     impact: {
-      eyebrow: "Impact",
       label: "Impact",
       title: "Impact for a sustainable future",
       accent: "Impact",
@@ -648,7 +606,6 @@ const en: Copy = {
       lead: "We are committed to building an impact-focused portfolio by investing in startups that create environmental and social benefits. Our annual impact targets for the portfolio:",
     },
     sdg: {
-      eyebrow: "UN Sustainable Development Goals",
       title: "A strategy aligned with 10 goals",
       label: "SDGs",
       accent: "10 goals",
@@ -656,7 +613,6 @@ const en: Copy = {
       lead: "We invest in startups that create solutions in line with the United Nations Sustainable Development Goals.",
     },
     why: {
-      eyebrow: "Why Cleantech Ventures?",
       label: "Why us",
       title: "Our strategic approach for a sustainable future",
       accent: "strategic",
@@ -668,7 +624,6 @@ const en: Copy = {
     lead: "We partner early with sustainability-focused technology startups that have the ambition to change market dynamics.",
     termSheet: "Term sheet",
     look: {
-      eyebrow: "What we look for",
       label: "Criteria",
       title: "Investment strategy and criteria",
       accent: "criteria",
@@ -708,7 +663,6 @@ const en: Copy = {
     heading: "Early access to technologies *ahead of their time*",
     lead: "Cleantech GSYF is a CMB-regulated venture capital investment fund giving qualified investors access to sustainability-focused, globally scaling deep-tech startups.",
     why: {
-      eyebrow: "Why Cleantech GSYF?",
       label: "Why",
       title: "Financial returns and measurable impact, together",
       accent: "measurable impact",
@@ -732,7 +686,6 @@ const en: Copy = {
       ],
     },
     tax: {
-      eyebrow: "Tax advantage",
       label: "Tax",
       title: "0% tax and 0% withholding for VCIF investors",
       accent: "0% withholding",
@@ -836,7 +789,6 @@ const en: Copy = {
     writeUs: "Write to us",
     general: "General enquiries",
     manager: "Portfolio management company",
-    channels: "Channels",
     applyLabel: "Applications",
     applyTitle: "Two ways to *apply*",
     address: "Address",

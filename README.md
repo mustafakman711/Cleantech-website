@@ -22,7 +22,7 @@ npm run lint     # type check
 | `src/content/team.ts` | Management team and investment committee |
 | `src/content/posts.json` | News and insights articles (imported from the previous WordPress site) |
 | `src/components/` | Header, footer, hero illustration and shared sections |
-| `public/` | Logos, team photos, SDG icons and article images |
+| `public/` | Logos, team photos and article images |
 
 ## Editing content
 

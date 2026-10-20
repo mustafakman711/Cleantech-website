@@ -24,7 +24,6 @@
 
   --color-volt: #2cff98;
   --color-volt-300: #8fe3c4;
-  --color-volt-600: #19d97c;
   --color-volt-ink: #00704a; /* accent text on bone */
 
   --color-mist: #e9f5f1;
@@ -40,15 +39,6 @@
   --color-line-volt: color-mix(in oklab, #2cff98 24%, transparent);
   --color-line-ink: rgb(0 36 40 / 0.14);
 
-  /* Legacy aliases — inner pages (Phase 2b) still reference these names. */
-  --color-petrol-950: #001417;
-  --color-petrol-900: #002428;
-  --color-petrol-850: #00343a;
-  --color-petrol-500: #1d8580;
-  --color-neon: #2cff98;
-  --color-neon-300: #8fe3c4;
-  --color-neon-600: #19d97c;
-
   --font-sans: var(--font-mona), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-mona), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
@@ -57,7 +47,6 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-line: cubic-bezier(0.2, 0.7, 0, 1);
 
-  --animate-draw: draw 2.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
   --animate-pulse-node: pulse-node 3.2s ease-in-out infinite;
   --animate-rise: rise 0.9s var(--ease-out-expo) both;
 
@@ -107,7 +96,7 @@
     @apply bg-abyss-900 font-sans text-mist antialiased;
     font-size: 1.0625rem;
     line-height: 1.6;
-    }
+  }
   h1,
   h2,
   h3,
@@ -169,6 +158,11 @@
   @media (width >= 48rem) {
     padding-block: 5rem;
   }
+}
+
+/* The petrol brand band is lighter than abyss: slate labels drop to 3.5:1 there, so lift them to keep AA (4.7:1). */
+.bg-petrol-800 {
+  --color-slate: #9abcb7;
 }
 
 /** Light "bone" band: flips text + focus colours. Never use volt text inside it. */
@@ -297,14 +291,6 @@
   background-size: 24px 24px;
 }
 
-/** Legacy (inner pages): faint square grid. */
-@utility grid-lines {
-  background-image:
-    linear-gradient(to right, rgb(169 199 194 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(169 199 194 / 0.05) 1px, transparent 1px);
-  background-size: 56px 56px;
-}
-
 /* ---------- Components that are easier in CSS ---------- */
 
 /* Pictogram strokes stay hairline at any size. */
@@ -389,6 +375,9 @@
 .line-mask {
   display: block;
   overflow: hidden;
+  /* Room above the cap height for diacritics (Turkish İ, Ü, Ö …) and below for descenders. */
+  padding-top: 0.16em;
+  margin-top: -0.16em;
   padding-bottom: 0.12em;
   margin-bottom: -0.12em;
   padding-inline: 0.06em;

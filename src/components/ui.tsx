@@ -236,7 +236,7 @@ export function SectionHeader({
   return (
     <div className={`@container ${className}`}>
       <div className={`grid gap-y-6 ${split ? "@4xl:grid-cols-12 @4xl:gap-x-6" : ""}`}>
-        <ChapterLabel index={index} label={label ?? eyebrow} tone={tone} className={split ? "@4xl:col-span-3 @4xl:pt-[0.9rem]" : ""} />
+        <ChapterLabel index={index} label={label ?? eyebrow} tone={tone} className={split ? "@4xl:col-span-3 @4xl:self-start @4xl:pt-[0.9rem]" : ""} />
         <div className={split ? "@4xl:col-span-9" : ""}>
           <Heading id={id} className={`type-h2 max-w-[22ch] ${light ? "text-abyss-900" : "text-mist"} ${titleClassName}`}>
             {withAccent(title, accent, light ? "ink" : "volt")}

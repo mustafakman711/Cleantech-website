@@ -113,7 +113,7 @@ function PostTile({ post, locale }: { post: Post; locale: Locale }) {
         <time dateTime={post.date} className="type-label text-slate">
           {formatDate(post.date, locale)}
         </time>
-        <h3 className="mt-3 line-clamp-3 text-lg font-[480] leading-snug tracking-[-0.01em] text-mist transition-colors group-hover:text-volt md:text-xl">
+        <h3 className="mt-3 line-clamp-4 text-lg font-[480] leading-snug tracking-[-0.01em] text-mist transition-colors group-hover:text-volt md:text-xl">
           <Link href={postHref(locale, post)} className="outline-none after:absolute after:inset-0">
             {post.title}
           </Link>
